@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="css/app.css">
+    <script src="js/lib/jquery.js"></script>
+</head>
+
+<body>
+
+<form class="centered">
+    <h1>HighTimes</h1>
+    <input type="hidden" id="redirect-uri" name="redirect_uri" value=""/>
+    <input type="hidden" id="response-type" name="response_type" value="code"/>
+
+    <input id="instagram-user-id" name="user_id" placeholder="User id" class="row" value="1924007889"/>
+
+    <span class="row"> or</span>
+    <input id="instagram-user-name" name="user_name" placeholder="User name" class="row"/>
+    <button id="login-button">
+        Login
+    </button>
+</form>
+
+<script>
+    var authUrl = "https://instagram.com/oauth/authorize/",
+            clientId = "eafbdb4095514998ad2d06fe47f8db03",
+            redirectUrl = "http://localhost:8000/dashboard.html",
+            responseType = "token";
+
+    var onSubmitAction = function(){
+        var username  = $("#instagram-user-name").val(),
+                userid    = $("#instagram-user-id").val();
+
+        var redirectTo = redirectUrl +
+                "?state=user-id_" + userid;
+
+        var requestUrl = authUrl +
+                "?client_id=" + clientId +
+                "&response_type=" + responseType +
+                "&redirect_uri=" + encodeURI(redirectTo) ;
+
+        window.location = requestUrl;
+        return false;
+    };
+
+    var init = function(){
+        $("#login-button").click(onSubmitAction);
+    };
+
+    $(document).ready(init);
+</script>
+</body>
+</html>
