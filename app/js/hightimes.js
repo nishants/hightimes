@@ -16,33 +16,13 @@
 
   var login = function() {
     var urlParams = parse(currentUrl());
-    alert("user-id : " + urlParams.userId +"\n token : " + urlParams.accessToken )
-    getFollowers(urlParams.userId, urlParams.accessToken);
-  };
-
-  var getFollowers = function(userId, accessToken){
-    var clientId = "eafbdb4095514998ad2d06fe47f8db03"
-    var url = 'https://api.instagram.com/v1/users/'
-              + userId
-              + '/followed-by?access_token='
-              + accessToken;
-    $.ajax({
-      url: url,
-      dataType: 'jsonp',
-      type: 'GET',
-      data: {client_id: clientId},
-      success: function(data){
-        console.log(data);
-      },
-      error: function(data){
-        console.log(data);
-      }
-    });
+    new hightimes.Instagram(hightimes.clientConfig).getFollowers(urlParams.userId, urlParams.accessToken);
   };
 
   window.hightimes = {};
   window.hightimes.login = function () {
     login();
   };
+
 
 }).call(this);
