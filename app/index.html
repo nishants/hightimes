@@ -17,8 +17,6 @@
 
     <input id="instagram-user-id" name="user_id" placeholder="User id" class="row" value="1924007889"/>
 
-    <!--<span class="row"> or</span>-->
-    <!--<input id="instagram-user-name" name="user_name" placeholder="User name" class="row"/>-->
     <button id="login-button">
         Login
     </button>
@@ -34,10 +32,21 @@
         return $("#instagram-user-id").val()
     };
 
+    var loginUrl = function(config, userId){
+        return hightimes.loginUrlWith(config).forId(userId)
+    };
+
+    var config = function(){
+        return hightimes.clientConfig;
+    };
+
     var init = function () {
-        var config = hightimes.clientConfig;
         $("#login-button").click(function () {
-            navigateTo(hightimes.loginUrlFor(config).withUserId(userID()));
+            navigateTo(loginUrl(
+                            config(),
+                            userID()
+                    )
+            );
             return false;
         });
     };

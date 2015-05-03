@@ -2,14 +2,14 @@
   'user strict'
 
 
-  var LoginService = function (config) {
+  var LoginUrl = function (config) {
     this.authUrl = config.authUrl;
     this.clientId = config.clientID;
     this.redirectUrl = config.homeUrl;
     this.responseType = config.authType;
   };
 
-  LoginService.prototype.withUserId = function (userId) {
+  LoginUrl.prototype.forId = function (userId) {
     var redirectTo = this.redirectUrl +
         "?state=user-id_" + userId;
 
@@ -21,7 +21,7 @@
     return requestUrl;
   };
 
-  window.hightimes.loginUrlFor = function (config) {
-    return new LoginService(config);
+  window.hightimes.loginUrlWith = function (config) {
+    return new LoginUrl(config);
   };
 }).call(this);
