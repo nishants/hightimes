@@ -58,7 +58,7 @@
         var load = function(url, fetchNextPage, callback){
             fetchNextPage(url, function (response) {
                 var page = new Page(response);
-                callback(page.dataList());
+                callback(page);
                 if(page.hasNext()){
                     load(page.nextUrl(),fetchNextPage, callback)
                 }
@@ -71,8 +71,8 @@
 
     var url = "https://api.instagram.com/v1/users/1442600494/media/recent?client_id=eafbdb4095514998ad2d06fe47f8db03&client_secret=5661da3c7c9f4a22a9c51d8129d2264b&access_token=1924007889.eafbdb4.0e2cf007b9d64f719ad1034ebd14bd68";
 
-
-    new PagedResource(url).forEach(function(dataArr){
+    new PagedResource(url).forEach(function(page){
+        dataArr = page.dataList();
         for(var i =0; i<dataArr.length; i++){
             console.log(dataArr[i].created_time);
         }
