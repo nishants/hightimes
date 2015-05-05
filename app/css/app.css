@@ -37,7 +37,6 @@ input {
 }
 /* **************** Styles**************** */
 .btn{
-
   background-color: rgb(208, 243, 243);
   padding: 5px;
   margin: 5px;
@@ -101,6 +100,10 @@ input {
 
 .bad-action{
   color: rgb(187, 222, 222);;
+}
+
+.hidden{
+  display: none;
 }
 
 /* **************** Masking **************** */
