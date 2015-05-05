@@ -25,13 +25,20 @@
   Modal.prototype.show = function (onSelection) {
     this.window.show("slow", "swing");
     var modal = this;
+
     var onOptionClick = function(e){
       var selectedIndex = $(e.target).attr("option");
       onSelection(selectedIndex);
       modal.destroy();
     };
 
+    var cancel = function(){
+      onSelection(-1);
+      modal.destroy();
+    };
+
     this.window.find(".username-option:visible").on("mousedown", onOptionClick);
+    this.close = this.window.find(".close-modal").first().on("mousedown", cancel);
   };
 
   window.hightimes.Modal = {};

@@ -59,3 +59,17 @@ QUnit.test("Should should callback with index of option selected", function (ass
   assert.equal($modalWindow().find(".username-option").length, 1, "Should remove options from dom on selection");
   assert.equal($modalWindow().find(".username-option").first().attr("id"), "sample-option", "Should keep sample option after destroy for resuse");
 });
+
+QUnit.test("Should should callback with index -1 if cancelled", function (assert) {
+  modal = window.hightimes.Modal.create($modalWindow(), ["option1", "option2", "option3"]);
+  var selectedOption;
+  var callback = function(index){
+    selectedOption = index;
+  };
+
+  modal.show(callback);
+
+  $modalWindow().find(".close-modal").first().trigger("mousedown");
+  assert.equal(selectedOption, -1, "Should callback with index -1 on pressing close button.");
+  assert.equal($modalWindow().is(":visible"), false, "Should hide modal on cancel");
+});
