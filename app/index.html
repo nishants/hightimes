@@ -11,7 +11,7 @@
 
 <body>
 
-<div id="login" class="centered img-background img-bg-blue-lit full-screen" action="">
+<div id="login-page" class="centered img-background img-bg-blue-lit full-screen" action="">
     <img id="brand" src="images/hightimes-logo.gif" class="undo-image"/>
 
     <div class="attached-input-label">
@@ -26,36 +26,38 @@
 </div>
 
 <script>
-    var userID = function () {
-        return $("#user-id").val();
-    };
-    var username = function () {
-        return $("#username").val();
-    };
 
-    var loginSucces = function(){
-        alert("Working hard to do it.....errhhh...")
-    };
+    var LoginPage = function($page){
+        var loginSucces = function(){
+            alert("Working hard to do it.....errhhh...")
+        };
 
-    var toUserNames = function(users){
-        var usernames = [];
-        for(var i =0 ; i< users.length; i++){
-            usernames.push(users[i].username)
-        }
-        return usernames;
-    };
+        var toUserNames = function(users){
+            var usernames = [];
+            for(var i =0 ; i< users.length; i++){
+                usernames.push(users[i].username)
+            }
+            return usernames;
+        };
 
-    var invalidUserId = function () {
-        alert("Please enter a valid user id.");
-    };
+        var invalidUserId = function () {
+            alert("Please enter a valid user id.");
+        };
 
-    var showModal = function (data) {
-        var onSelect = function (index) {alert("selected : "+ data[index]);}
-        window.hightimes.Modal.create($("#select-user-dialog"), data).show(onSelect);
-    };
+        var showModal = function (data) {
+            var onSelect = function (index) {alert("selected : "+ data[index]);}
+            window.hightimes.Modal.create($("#select-user-dialog"), data).show(onSelect);
+        };
 
-    var init = function () {
+        this.page = $page;
         hightimes.init();
+
+        var userID = function () {
+            return $("#user-id").val();
+        };
+        var username = function () {
+            return $("#username").val();
+        };
 
         $("#login-by-id").mousedown(function(e){
             hightimes.findUserById(userID()).ok(loginSucces).error(invalidUserId);
@@ -68,6 +70,12 @@
                 showModal(toUserNames(users));
             });
         });
+
+        this.page.show();
+    };
+
+    var init = function () {
+        new LoginPage($("login-page"));
     };
     $(document).ready(init);
 </script>
