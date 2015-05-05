@@ -4,14 +4,16 @@
     <script src="js/lib/jquery.js"></script>
 
     <script src="js/hightimes.js"></script>
+    <script src="js/user-activity-matrix.js"></script>
     <script src="js/promise.js"></script>
     <script src="js/instagram.js"></script>
     <script src="js/modal.js"></script>
+    <script src="js/views/login-page.js"></script>
 </head>
 
 <body>
 
-<div id="login-page" class="centered img-background img-bg-blue-lit full-screen" action="">
+<div id="login-page" class="centered img-background img-bg-blue-lit full-screen hidden" action="">
     <img id="brand" src="images/hightimes-logo.gif" class="undo-image"/>
 
     <div class="attached-input-label">
@@ -25,58 +27,42 @@
     </div>
 </div>
 
+<div id="dashboard-page" class="centered img-background img-bg-blue-lit full-screen" action="">
+
+</div>
+
 <script>
-
-    var LoginPage = function($page){
-        var loginSucces = function(){
-            alert("Working hard to do it.....errhhh...")
-        };
-
-        var toUserNames = function(users){
-            var usernames = [];
-            for(var i =0 ; i< users.length; i++){
-                usernames.push(users[i].username)
-            }
-            return usernames;
-        };
-
-        var invalidUserId = function () {
-            alert("Please enter a valid user id.");
-        };
-
-        var showModal = function (data) {
-            var onSelect = function (index) {alert("selected : "+ data[index]);}
-            window.hightimes.Modal.create($("#select-user-dialog"), data).show(onSelect);
-        };
-
-        this.page = $page;
+    var init = function () {
         hightimes.init();
 
-        var userID = function () {
-            return $("#user-id").val();
+        var matrix = new hightimes.UserActivityMatrix(3);
+        matrix = matrix.matrix;
+        matrix[0][10] = 4;
+        matrix[1][10] = 4;
+        matrix[3][10] = 4;
+        matrix[4][10] = 4;
+        matrix[5][10] = 4;
+        matrix[6][10] = 4;
+        matrix[1][1]  = 5;
+        matrix[2][2]  = 6;
+        matrix[3][3]  = 7;
+
+
+        var DashBoard = function($page, activityMatrix){
+
+
         };
-        var username = function () {
-            return $("#username").val();
+
+        var onLogin = function(){
+            new DashBoard($("#dashboard"), matrix).show();
         };
 
-        $("#login-by-id").mousedown(function(e){
-            hightimes.findUserById(userID()).ok(loginSucces).error(invalidUserId);
-        });
-
-        $("#login-by-name").mousedown(function(e){
-            hightimes.searchUsername(username()).ok(function (user) {
-                console.log(user.full_name);
-            }).error(function(users){
-                showModal(toUserNames(users));
-            });
-        });
-
-        this.page.show();
+//        hightimes.showLoginPage(
+//                $("#login-page"),
+//                onLogin
+//        );
     };
 
-    var init = function () {
-        new LoginPage($("login-page"));
-    };
     $(document).ready(init);
 </script>
 <div id="select-user-dialog" class="modal-window hidden centered bg-high-blue hidden">
