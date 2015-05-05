@@ -10,7 +10,7 @@
 
   var UserActivityMatrix = function (periodLengthInHours) {
     this.intervalInHours = periodLengthInHours;
-    this.matrix = [[]];
+    this.matrix = [[], [], [], [], [], [], []];
   };
 
   UserActivityMatrix.prototype.addActivityAt = function (unixTime) {

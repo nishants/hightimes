@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<div id="dashboard-page" class="centered img-background img-bg-blue-lit full-screen" action="">
+<div id="dashboard-page" class="centered img-background img-bg-blue-lit full-screen hidden" action="">
 
 </div>
 
@@ -35,8 +35,20 @@
     var init = function () {
         hightimes.init();
 
-        var matrix = new hightimes.UserActivityMatrix(3);
-        matrix = matrix.matrix;
+        var DashBoard = function($page, activityMatrix){
+            this.show = function(){$page.show();};
+        };
+
+//        var onLogin = function(){
+//            new DashBoard($("#dashboard"), matrix).show();
+//        };
+//
+//        hightimes.showLoginPage(
+//                $("#login-page"),
+//                onLogin
+//        );
+
+        var matrix = [[], [], [], [], [], [], []];
         matrix[0][10] = 4;
         matrix[1][10] = 4;
         matrix[3][10] = 4;
@@ -47,20 +59,10 @@
         matrix[2][2]  = 6;
         matrix[3][3]  = 7;
 
-
-        var DashBoard = function($page, activityMatrix){
-
-
+        var FakeMatrix = function(matrix){
+            this.activityAt = function(a, b){ return matrix[a][b]; }
         };
-
-        var onLogin = function(){
-            new DashBoard($("#dashboard"), matrix).show();
-        };
-
-//        hightimes.showLoginPage(
-//                $("#login-page"),
-//                onLogin
-//        );
+        new DashBoard($("#dashboard-page"), new FakeMatrix(matrix)).show();
     };
 
     $(document).ready(init);
