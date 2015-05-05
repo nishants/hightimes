@@ -146,3 +146,28 @@ body{
   border-bottom: 1px solid rgba(208, 243, 243, 0.53);
   text-shadow: 0 0 3px rgb(28, 123, 164);
 }
+
+.indicator-level-0{
+  background-color: #d9dc82;
+   height: 4vh;
+}
+
+.indicator-level-1{
+  background-color: #dca743;
+  height: 7vh;
+}
+.indicator-level-2{
+  background-color: #dc110f;
+  height: 13vh;
+}
+
+.weekday{
+  height: 19vh;
+}
+
+.weekday > div{
+    display: inline-block;
+    width: 9%;
+    border: solid black;
+    border-width: 2px;
+}

@@ -29,14 +29,54 @@
 
 <div id="dashboard-page" class="centered img-background img-bg-blue-lit full-screen hidden" action="">
 
+    <div id="monday"    class="weekday ">M<div id="indicator00"></div><div id="indicator01"></div><div id="indicator02"></div> <div id="indicator03"></div> <div id="indicator04"></div> <div id="indicator05"></div> <div id="indicator06"></div><div id="indicator07"></div></div>
+    <div id="tuesday"   class="weekday ">T<div id="indicator10"></div><div id="indicator11"></div><div id="indicator12"></div> <div id="indicator13"></div> <div id="indicator14"></div> <div id="indicator15"></div> <div id="indicator16"></div><div id="indicator17"></div></div>
+    <div id="wednesday" class="weekday ">W<div id="indicator20"></div><div id="indicator21"></div><div id="indicator22"></div> <div id="indicator23"></div> <div id="indicator24"></div> <div id="indicator25"></div> <div id="indicator26"></div><div id="indicator27"></div></div>
+    <div id="thursday"  class="weekday ">T<div id="indicator30"></div><div id="indicator31"></div><div id="indicator32"></div> <div id="indicator33"></div> <div id="indicator34"></div> <div id="indicator35"></div> <div id="indicator36"></div><div id="indicator37"></div></div>
+    <div id="friday"    class="weekday ">F<div id="indicator40"></div><div id="indicator41"></div><div id="indicator42"></div> <div id="indicator43"></div> <div id="indicator44"></div> <div id="indicator45"></div> <div id="indicator46"></div><div id="indicator47"></div></div>
+    <div id="saturday"  class="weekday ">S<div id="indicator50"></div><div id="indicator51"></div><div id="indicator52"></div> <div id="indicator53"></div> <div id="indicator54"></div> <div id="indicator55"></div> <div id="indicator56"></div><div id="indicator57"></div></div>
+    <div id="sunday"    class="weekday ">S<div id="indicator60"></div><div id="indicator61"></div><div id="indicator62"></div> <div id="indicator63"></div> <div id="indicator64"></div> <div id="indicator65"></div> <div id="indicator66"></div><div id="indicator67"></div></div>
 </div>
 
 <script>
     var init = function () {
         hightimes.init();
 
-        var DashBoard = function($page, activityMatrix){
-            this.show = function(){$page.show();};
+        var DashBoard = function($page, user, activityMatrix){
+
+            var weight = function(value){
+                if(!value) return 0;
+
+                if(value > activityMatrix.average()) return  2;
+                if(value < activityMatrix.average()) return 0;
+                return 1;
+            };
+
+            var indicatorAt = function(day, period){
+                return {"set": function(weight){
+                    $("#indicator"+day+""+period).removeClass("indicator-level-0");
+                    $("#indicator"+day+""+period).removeClass("indicator-level-1");
+                    $("#indicator"+day+""+period).removeClass("indicator-level-2");
+
+                    $("#indicator"+day+""+period).addClass("indicator-level-"+weight);
+                }};
+            };
+
+            var render = function(){
+                for(var day = 0; day < 7; day ++){
+                    for(var period = 0; period < 8; period++){
+                        var indicatorWeight = weight(activityMatrix.activityAt(day, period));
+                        indicatorAt(day, period).set(indicatorWeight);
+                    }
+                }
+            };
+
+            this.show = function(){
+                $page.show();
+                setInterval(function(){
+                    render();
+                }, 1000);
+            };
         };
 
 //        var onLogin = function(){
@@ -49,20 +89,44 @@
 //        );
 
         var matrix = [[], [], [], [], [], [], []];
-        matrix[0][10] = 4;
-        matrix[1][10] = 4;
-        matrix[3][10] = 4;
-        matrix[4][10] = 4;
-        matrix[5][10] = 4;
-        matrix[6][10] = 4;
+        matrix[0][7] = 4;
+        matrix[1][7] = 3;
+        matrix[3][7] = 5;
+        matrix[4][7] = 4;
+        matrix[5][7] = 5;
+        matrix[6][7] = 4;
+
         matrix[1][1]  = 5;
-        matrix[2][2]  = 6;
+        matrix[2][2]  = 1;
         matrix[3][3]  = 7;
+
+        setInterval(function(){
+            var day = parseInt(((Math.random() *  7)%7));
+            var period = parseInt(((Math.random() *  8)%8));
+            var weigth = parseInt(((Math.random() *  8)%8));
+            matrix[day][period] = weigth;
+        }, 1000);
 
         var FakeMatrix = function(matrix){
             this.activityAt = function(a, b){ return matrix[a][b]; }
+            this.average    = function(){return 4};
+            this.highest    = function(){return 7};
+            this.lowest     = function(){return 0};
         };
-        new DashBoard($("#dashboard-page"), new FakeMatrix(matrix)).show();
+        var fakeUser = {
+            "username": "balajeevenkatesh",
+            "bio": "",
+            "website": "",
+            "profile_picture": "https://igcdn-photos-c-a.akamaihd.net/hphotos-ak-xap1/t51.2885-19/10853151_412920515533426_1539642759_a.jpg",
+            "full_name": "Balajee Venkatesh",
+            "counts": {
+                "media": 12,
+                "followed_by": 231,
+                "follows": 517
+            },
+            "id": "1267501370"
+        };
+        new DashBoard($("#dashboard-page"), fakeUser, new FakeMatrix(matrix)).show();
     };
 
     $(document).ready(init);
