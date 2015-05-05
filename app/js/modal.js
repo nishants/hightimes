@@ -3,6 +3,7 @@
 
   var Modal = function ($window, data) {
     this.window = $window;
+    this.$closeButton = this.window.find(".close-modal").first();
     this.render(data);
   };
 
@@ -19,6 +20,7 @@
 
   Modal.prototype.destroy = function () {
     this.window.find(".username-option:visible").remove();
+    this.$closeButton.off("mousedown");
     this.window.hide();
   };
 
@@ -38,7 +40,7 @@
     };
 
     this.window.find(".username-option:visible").on("mousedown", onOptionClick);
-    this.close = this.window.find(".close-modal").first().on("mousedown", cancel);
+    this.close = this.$closeButton.on("mousedown", cancel);
   };
 
   window.hightimes.Modal = {};
