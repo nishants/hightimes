@@ -18,11 +18,15 @@ QUnit.module('Modal Dialog', {
 });
 
 QUnit.test("Should render modal window", function (assert) {
-  modal = window.hightimes.Modal.create($("#select-user-dialog"));
+
+  var onShow = function () {assert.ok(true, "Should callback on show")};
+
+  modal = window.hightimes.Modal.create($("#select-user-dialog"), onShow);
 
   assert.ok(modal, "Create modal");
-  
+
   modal.show();
 
   assert.ok($modalWindow().is(":visible"), "Modal should be visible on show()");
+  assert.expect(3);
 });
