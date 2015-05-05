@@ -17,6 +17,10 @@
     return -1;
   };
 
+  hightimes.findUserById = function (id) {
+    return instagram.findUserById(id);
+  };
+
   window.hightimes.searchUsername = function (query) {
     var promise = new hightimes.Promise();
     instagram.searchUsers(query).ok(function(response){

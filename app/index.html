@@ -33,10 +33,6 @@
         return $("#username").val();
     };
 
-    var loginWithUserId = function (userId) {
-
-    };
-
     var loginSucces = function(){
         alert("Working hard to do it.....errhhh...")
     };
@@ -62,7 +58,7 @@
         hightimes.init();
 
         $("#login-by-id").mousedown(function(e){
-            loginWithUserId(userID()).ok(loginSucces).error(invalidUserId);
+            hightimes.findUserById(userID()).ok(loginSucces).error(invalidUserId);
         });
 
         $("#login-by-name").mousedown(function(e){
