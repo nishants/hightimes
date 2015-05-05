@@ -1,20 +1,30 @@
-var Modal = function($window, onShow, onClose){
-  this.window = $window;
-  this.onShow = onShow;
-  this.onClose = onClose;
-};
+(function () {
+  "use strict"
 
-Modal.prototype.close = function(){
-  this.window.hide();
-  this.onClose();
-};
+  var Modal = function ($window, data) {
+    this.window = $window;
+    this.data = data;
+    this.render();
+  };
 
-Modal.prototype.show = function(){
-  this.window.show("slow", "swing");
-  this.onShow();
-};
+  Modal.prototype.render = function () {
+    var sampleOption = this.window.find(".username-option").first();
+    for (var i = 0; i < this.data.length ; i++) {
+      var optionNode = sampleOption.clone();
+      optionNode.html(this.data[i]);
+      sampleOption.parent().append(optionNode);
+    }
+    sampleOption.hide();
+  };
 
-window.hightimes.Modal = {};
-window.hightimes.Modal.create = function($window, onShow, onClose){
-  return new Modal($window, onShow, onClose);
-};
+  Modal.prototype.show = function () {
+    this.window.show("slow", "swing");
+  };
+
+  window.hightimes.Modal = {};
+
+  window.hightimes.Modal.create = function ($window, data) {
+    return new Modal($window, data);
+  };
+
+}).call(this);

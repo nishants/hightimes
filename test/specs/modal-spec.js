@@ -4,9 +4,7 @@ var $modalWindow = function () {return $("#select-user-dialog");},
                 +'      <div class="close-modal btn bad-action">X</div>'
                 +'      <p class="modal-message">Please select correct username to continue</p>'
                 +'      <form >'
-                +'        <div id="option-1" class="username-option btn pull-left "> nishant.singh87</div>'
-                +'        <div id="option-2" class="username-option btn pull-left "> nishant.singh</div>'
-                +'        <div id="option-3" class="username-option btn pull-left "> nishant.s87</div>'
+                +'        <div id="sample-option" class="username-option btn pull-left "> nishant.singh87</div>'
                 +'      </form>'
                 +'    </div>';
 
@@ -17,30 +15,26 @@ QUnit.module('Modal Dialog', {
   }
 });
 
-QUnit.test("Should render modal window", function (assert) {
+QUnit.test("Should show modal window", function (assert) {
 
-  var onShow = function () {assert.ok(true, "Should callback on show")};
-
-  modal = window.hightimes.Modal.create($("#select-user-dialog"), onShow);
+  modal = window.hightimes.Modal.create($modalWindow(), []);
 
   assert.ok(modal, "Create modal");
 
   modal.show();
 
   assert.ok($modalWindow().is(":visible"), "Modal should be visible on show()");
-  assert.expect(3);
 });
 
-QUnit.test("Should render modal window", function (assert) {
-
-  var onShow = function () {};
-  var onClose = function () {assert.ok(true, "Should callback on close")};
-
-  modal = window.hightimes.Modal.create($("#select-user-dialog"), onShow, onClose);
+QUnit.test("Should render options", function (assert) {
+  modal = window.hightimes.Modal.create($modalWindow(), ["option1", "option2", "option3"]);
   modal.show();
-  modal.close();
 
-  assert.ok(!$modalWindow().is(":visible"), "Modal should be invisible on close()");
+  var option = function (number) {
+    return $modalWindow().find(".username-option:visible").get(number).innerHTML.trim();
+  };
 
-  assert.expect(2);
+  assert.equal(option(0), "option1", "should render all options");
+  assert.equal(option(1), "option2", "should render all options");
+  assert.equal(option(2), "option3", "should render all options");
 });

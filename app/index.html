@@ -9,7 +9,7 @@
 
 <body>
 
-<form id="login" class="centered img-background img-bg-blue-lit full-screen" action="#">
+<form id="login" class="centered img-background img-bg-blue-lit full-screen" action="">
     <img id="brand" src="images/hightimes-logo.gif" class="undo-image"/>
 
     <div class="attached-input-label">
@@ -40,6 +40,10 @@
         alert("Please enter a valid user id.");
     };
 
+    var showModal = function () {
+        window.hightimes.Modal.create($("#select-user-dialog"), ["nishant.singh87 | 1", "nishant.si87 | 2", "nishant.singh | 3"]).show();
+    };
+
     var init = function () {
         $("#login-by-id").mousedown(function(){
             loginWithUserId(userID()).ok(loginSucces).error(invalidUserId);
@@ -48,7 +52,7 @@
         $("#login-by-name").mousedown(function(){
             alert("login by name not supported yet.");
         });
-
+        showModal();
     };
     $(document).ready(init);
 </script>
@@ -56,9 +60,7 @@
     <div class="close-modal btn bad-action">X</div>
     <p class="modal-message">Please select correct username to continue</p>
     <form >
-        <div id="option-1" class="username-option btn pull-left "> nishant.singh87</div>
-        <div id="option-2" class="username-option btn pull-left "> nishant.singh</div>
-        <div id="option-3" class="username-option btn pull-left "> nishant.s87</div>
+        <div id="sample-option" class="username-option btn pull-left "> nishant.singh87</div>
     </form>
 </div>
 </body>
