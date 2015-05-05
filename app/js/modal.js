@@ -17,13 +17,21 @@
     sampleOption.hide();
   };
 
+  Modal.prototype.destroy = function () {
+    this.window.find(".username-option:visible").remove();
+    this.window.hide();
+  };
+
   Modal.prototype.show = function (onSelection) {
     this.window.show("slow", "swing");
+    var modal = this;
     var onOptionClick = function(e){
       var selectedIndex = $(e.target).attr("option");
       onSelection(selectedIndex);
+      modal.destroy();
     };
-    this.window.find(".username-option:visible").on("mousedown", onOptionClick)
+
+    this.window.find(".username-option:visible").on("mousedown", onOptionClick);
   };
 
   window.hightimes.Modal = {};

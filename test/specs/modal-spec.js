@@ -53,5 +53,9 @@ QUnit.test("Should should callback with index of option selected", function (ass
   };
 
   option(2).trigger("mousedown");
-  assert.equal(selectedOption, 2, "Should callback with index of options selected.")
+  assert.equal(selectedOption, 2, "Should callback with index of options selected.");
+  assert.equal($modalWindow().is(":visible"), false, "Should hide modal on selection");
+
+  assert.equal($modalWindow().find(".username-option").length, 1, "Should remove options from dom on selection");
+  assert.equal($modalWindow().find(".username-option").first().attr("id"), "sample-option", "Should keep sample option after destroy for resuse");
 });
