@@ -1,0 +1,91 @@
+/* **************** Undo's *****************/
+.undo-image{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+button{
+  height: 2.9em;
+  padding: 0;
+  margin: 0px;
+  border: none;
+  color: rgb(27, 123, 163);
+}
+input {
+  border: none;
+  background: rgba(255,255,255,0.25);
+  color: white;
+  height: 2.9em;
+  padding-left: 2%;
+  /*border-radius: 6px;*/
+  /*padding: 13px;*/
+  /*width: 430px;*/
+  /*outline: none !important;*/
+  /*letter-spacing: 1px;*/
+  /*margin: 0 0 15px 0;*/
+  /*box-sizing: border-box;*/
+}
+
+::-webkit-input-placeholder {
+  color: rgb(193, 239, 238);
+;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  color: rgb(193, 239, 238);
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  color: rgb(193, 239, 238);
+}
+
+:-ms-input-placeholder {
+  color: rgb(193, 239, 238);
+}
+/* **************** Styles**************** */
+.img-background{
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+}
+
+.centered{
+  text-align: center;
+}
+
+.full-screen {
+  height: 100vh; /*Each section of the size of viewport.*/
+}
+
+.attached-input-label{
+
+}
+.attached-input-label > input{
+  width: 80%;
+}
+
+.attached-input-label > button{
+  width: 15%;
+  position: relative;
+  left: -10%;
+  background-color: rgb(208, 243, 243);
+}
+/* **************** Masking **************** */
+.img-bg-blue-lit{
+  background-image: url("../images/blue-lit.jpg");
+}
+
+#login #brand{
+  max-width: 60%;
+  padding: 5%;
+}
+
+#login > .attached-input-label{
+  padding-left: 10%;
+}
+
+#login{
+  padding-top: 25%;
+  padding-left: 10%;
+}
