@@ -10,6 +10,7 @@
   };
 
   LoginUrl.prototype.forId = function (userId) {
+    //TODO correct, state is not a part of the redirect url, but request itself.
     var redirectTo = this.redirectUrl +
         "?state=user-id_" + userId;
 
