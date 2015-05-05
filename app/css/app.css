@@ -36,28 +36,13 @@ input {
   color: rgb(193, 239, 238);
 }
 /* **************** Styles**************** */
-.img-background{
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center center;
-}
+.btn{
 
-.centered{
-  text-align: center;
+  background-color: rgb(208, 243, 243);
+  padding: 5px;
+  margin: 5px;
+  color: rgb(24, 117, 157);
 }
-
-.full-screen {
-  height: 100vh; /*Each section of the size of viewport.*/
-}
-
-.attached-input-label{
-  margin-bottom: 10%;
-}
-.attached-input-label > input{
-  width: 80%;
-}
-
 .modal-window{
   position: absolute;
   margin: 10%;
@@ -66,7 +51,26 @@ input {
   border: solid;
   border-width: 1px;
   padding: 5%;
+  border: 1px outset rgba(208, 243, 243, 0.53);
+  padding-top: 0;
 }
+
+.img-background{
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+}
+
+
+.attached-input-label{
+  margin-bottom: 10%;
+}
+
+.attached-input-label > input{
+  width: 80%;
+}
+
 
 
 .pull-left{
@@ -87,6 +91,18 @@ input {
 .txt-low-blue{
   color: rgb(208, 243, 243);
 }
+.centered{
+  text-align: center;
+}
+
+.full-screen {
+  height: 100vh; /*Each section of the size of viewport.*/
+}
+
+.bad-action{
+  color: rgb(187, 222, 222);;
+}
+
 /* **************** Masking **************** */
 
 .img-bg-blue-lit{
@@ -106,19 +122,8 @@ input {
   padding-top: 25%;
   padding-left: 10%;
 }
-
 .username-option{
-  margin-bottom: 2px;
-  margin-left: 15%;
-  padding-left: 5%;
-  width: 75%;
-  text-align: left;
-  background-color: rgba(0, 0, 0, 0.3);
-  font-size: 150%;
-  border-style: outset;
-  border-color: black;
-  border-width: 1px;
-  border-radius: 3px;
+ width: 100%;
 }
 
 body{
@@ -126,4 +131,15 @@ body{
   margin-left: auto;
   margin-right: auto;
   background: rgba(78, 174, 202, 0.67);
+}
+
+.close-modal{
+  width: 20px;
+  line-height: 20px;
+}
+
+.modal-message{
+  color: rgb(208, 243, 243);
+  border-bottom: 1px solid rgba(208, 243, 243, 0.53);
+  text-shadow: 0 0 3px rgb(28, 123, 164);
 }
