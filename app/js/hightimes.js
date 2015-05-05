@@ -18,7 +18,15 @@
   };
 
   hightimes.findUserById = function (id) {
-    return instagram.findUserById(id);
+    var promise = new hightimes.Promise();
+
+    instagram.findUserById(id).ok(
+        function(response){
+          promise.fulfill(response.data);
+        }
+    ).error(promise.sorry);
+
+    return promise;
   };
 
   window.hightimes.searchUsername = function (query) {
