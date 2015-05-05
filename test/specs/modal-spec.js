@@ -30,3 +30,17 @@ QUnit.test("Should render modal window", function (assert) {
   assert.ok($modalWindow().is(":visible"), "Modal should be visible on show()");
   assert.expect(3);
 });
+
+QUnit.test("Should render modal window", function (assert) {
+
+  var onShow = function () {};
+  var onClose = function () {assert.ok(true, "Should callback on close")};
+
+  modal = window.hightimes.Modal.create($("#select-user-dialog"), onShow, onClose);
+  modal.show();
+  modal.close();
+
+  assert.ok(!$modalWindow().is(":visible"), "Modal should be invisible on close()");
+
+  assert.expect(2);
+});

@@ -4,7 +4,10 @@ var Modal = function($window, onShow, onClose){
   this.onClose = onClose;
 };
 
-Modal.prototype.close = function(){};
+Modal.prototype.close = function(){
+  this.window.hide();
+  this.onClose();
+};
 
 Modal.prototype.show = function(){
   this.window.show("slow", "swing");
