@@ -1,4 +1,5 @@
-var modal,
+var $modalWindow = function () {return $("#select-user-dialog");},
+    modal,
     modalHTML =  '    <div id="select-user-dialog" class="modal-window hidden centered bg-high-blue hidden">   '
                 +'      <div class="close-modal btn bad-action">X</div>'
                 +'      <p class="modal-message">Please select correct username to continue</p>'
@@ -18,5 +19,10 @@ QUnit.module('Modal Dialog', {
 
 QUnit.test("Should render modal window", function (assert) {
   modal = window.hightimes.Modal.create($("#select-user-dialog"));
+
   assert.ok(modal, "Create modal");
+  
+  modal.show();
+
+  assert.ok($modalWindow().is(":visible"), "Modal should be visible on show()");
 });
