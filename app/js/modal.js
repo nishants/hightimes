@@ -3,22 +3,27 @@
 
   var Modal = function ($window, data) {
     this.window = $window;
-    this.data = data;
-    this.render();
+    this.render(data);
   };
 
-  Modal.prototype.render = function () {
+  Modal.prototype.render = function (data) {
     var sampleOption = this.window.find(".username-option").first();
-    for (var i = 0; i < this.data.length ; i++) {
+    for (var i = 0; i < data.length ; i++) {
       var optionNode = sampleOption.clone();
-      optionNode.html(this.data[i]);
+      optionNode.html(data[i]);
+      optionNode.attr("option", i);
       sampleOption.parent().append(optionNode);
     }
     sampleOption.hide();
   };
 
-  Modal.prototype.show = function () {
+  Modal.prototype.show = function (onSelection) {
     this.window.show("slow", "swing");
+    var onOptionClick = function(e){
+      var selectedIndex = $(e.target).attr("option");
+      onSelection(selectedIndex);
+    };
+    this.window.find(".username-option:visible").on("mousedown", onOptionClick)
   };
 
   window.hightimes.Modal = {};

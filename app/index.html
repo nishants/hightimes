@@ -41,15 +41,16 @@
     };
 
     var showModal = function () {
-        window.hightimes.Modal.create($("#select-user-dialog"), ["nishant.singh87 | 1", "nishant.si87 | 2", "nishant.singh | 3"]).show();
+        var onSelect = function (index) {console.log("selected : "+index);}
+        window.hightimes.Modal.create($("#select-user-dialog"), ["nishant.singh87 | 1", "nishant.si87 | 2", "nishant.singh | 3"]).show(onSelect);
     };
 
     var init = function () {
-        $("#login-by-id").mousedown(function(){
+        $("#login-by-id").mousedown(function(e){
             loginWithUserId(userID()).ok(loginSucces).error(invalidUserId);
         });
 
-        $("#login-by-name").mousedown(function(){
+        $("#login-by-name").mousedown(function(e){
             alert("login by name not supported yet.");
         });
         showModal();

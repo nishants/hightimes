@@ -38,3 +38,20 @@ QUnit.test("Should render options", function (assert) {
   assert.equal(option(1), "option2", "should render all options");
   assert.equal(option(2), "option3", "should render all options");
 });
+
+QUnit.test("Should should callback with index of option selected", function (assert) {
+  modal = window.hightimes.Modal.create($modalWindow(), ["option1", "option2", "option3"]);
+  var selectedOption;
+  var callback = function(index){
+    selectedOption = index;
+  };
+
+  modal.show(callback);
+
+  var option = function (number) {
+    return $($modalWindow().find(".username-option:visible").get(number));
+  };
+
+  option(2).trigger("mousedown");
+  assert.equal(selectedOption, 2, "Should callback with index of options selected.")
+});
