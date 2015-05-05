@@ -17,13 +17,6 @@ input {
   color: white;
   height: 2.9em;
   padding-left: 2%;
-  /*border-radius: 6px;*/
-  /*padding: 13px;*/
-  /*width: 430px;*/
-  /*outline: none !important;*/
-  /*letter-spacing: 1px;*/
-  /*margin: 0 0 15px 0;*/
-  /*box-sizing: border-box;*/
 }
 
 ::-webkit-input-placeholder {
@@ -65,13 +58,37 @@ input {
   width: 80%;
 }
 
+.modal-window{
+  position: absolute;
+  margin: 10%;
+  top: 15%;
+  background: rgba(0, 0, 0, 0.1);
+  border: solid;
+  border-width: 1px;
+  padding: 5%;
+}
+
+
+.pull-left{
+  float: left;
+  clear: left;
+}
+
 .attached-input-label > button{
   width: 15%;
   position: relative;
   left: -10%;
   background-color: rgb(208, 243, 243);
 }
+.txt-high-blue{
+  color: rgb(26, 122, 162);
+}
+
+.txt-low-blue{
+  color: rgb(208, 243, 243);
+}
 /* **************** Masking **************** */
+
 .img-bg-blue-lit{
   background-image: url("../images/blue-lit.jpg");
 }
@@ -88,4 +105,25 @@ input {
 #login{
   padding-top: 25%;
   padding-left: 10%;
+}
+
+.username-option{
+  margin-bottom: 2px;
+  margin-left: 15%;
+  padding-left: 5%;
+  width: 75%;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.3);
+  font-size: 150%;
+  border-style: outset;
+  border-color: black;
+  border-width: 1px;
+  border-radius: 3px;
+}
+
+body{
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgba(78, 174, 202, 0.67);
 }

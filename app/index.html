@@ -4,13 +4,11 @@
     <script src="js/lib/jquery.js"></script>
 
     <script src="js/hightimes.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/login.js"></script>
 </head>
 
 <body>
 
-<form id="login" class="centered img-background img-bg-blue-lit full-screen">
+<form id="login" class="centered img-background img-bg-blue-lit full-screen" action="#">
     <img id="brand" src="images/hightimes-logo.gif" class="undo-image"/>
 
     <div class="attached-input-label">
@@ -25,7 +23,41 @@
 </form>
 
 <script>
+    var userID = function () {
+        return $("#user-id").val();
+    };
 
+    var loginWithUserId = function (userId) {
+
+    };
+
+    var loginSucces = function(){
+        alert("Working hard to do it.....errhhh...")
+    };
+
+    var invalidUserId = function () {
+        alert("Please enter a valid user id.");
+    };
+
+    var init = function () {
+        $("#login-by-id").mousedown(function(){
+            loginWithUserId(userID()).ok(loginSucces).error(invalidUserId);
+        });
+
+        $("#login-by-name").mousedown(function(){
+            alert("login by name not supported yet.");
+        });
+
+    };
+    $(document).ready(init);
 </script>
+<div id="select-user-dialog" class="modal-window hidden centered bg-high-blue ">
+    <p id="message" class="">Please select correct username to continue</p>
+    <form >
+        <div id="option-1" class="username-option txt-low-blue pull-left "> nishant.singh87</div>
+        <div id="option-2" class="username-option txt-low-blue pull-left "> nishant.singh</div>
+        <div id="option-3" class="username-option txt-low-blue pull-left "> nishant.s87</div>
+    </form>
+</div>
 </body>
 </html>
