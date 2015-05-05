@@ -59,7 +59,7 @@ input {
 }
 
 .attached-input-label{
-
+  margin-bottom: 10%;
 }
 .attached-input-label > input{
   width: 80%;
