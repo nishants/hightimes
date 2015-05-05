@@ -1,29 +1,30 @@
 (function () {
   "use strict"
 
-  var Instagram = function (config) {
-    this.clientId = config.clientID;
+  var Instagram = function (clientId) {
+    this.clientId = clientId;
   };
 
-  Instagram.prototype.getFollowers = function (userId, accessToken) {
-    var url = 'https://api.instagram.com/v1/users/'
-        + userId
-        + '/followed-by?access_token='
-        + accessToken;
+  var searchURlFor = function(query){
+    return "https://api.instagram.com/v1/users/search?q=" + query;
+  }
 
+  Instagram.prototype.searchUsers = function(query){
+    var promise = new hightimes.Promise();
     $.ajax({
-      url: url,
+      url: searchURlFor(query),
       dataType: 'jsonp',
       type: 'GET',
       data: {client_id: this.clientId},
       success: function (data) {
-        //console.log(data);
+        promise.fulfill(data);
       },
       error: function (data) {
-        console.error(data);
+        promise.sorry(data);
       }
     });
+    return promise;
   };
 
-  hightimes.Instagram = Instagram;
+  window.hightimes.Instagram = Instagram;
 }).call(this);

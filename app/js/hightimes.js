@@ -1,28 +1,37 @@
 (function () {
   "use strict"
 
-  var currentUrl = function(){
-    return window.location.href;
-  };
-
-  var parse = function(url) {
-    var accessToken =  url.split("access_token=")[1].split("&")[0];
-    var userID = url.split("user-id_")[1].split("#")[0];
-    return {
-      "accessToken" : accessToken,
-      "userId" : userID
-    };
-  };
-
-  var login = function() {
-    var urlParams = parse(currentUrl());
-    new hightimes.Instagram(hightimes.clientConfig).getFollowers(urlParams.userId, urlParams.accessToken);
-  };
-
   window.hightimes = {};
-  window.hightimes.login = function () {
-    login();
+
+  var clientId = "eafbdb4095514998ad2d06fe47f8db03",
+      instagram;
+
+  window.hightimes.init = function () {
+    instagram = new hightimes.Instagram(clientId)
   };
 
+  var indexOf = function(users, username){
+    for(var i = 0; i< users.length; i++){
+      if(users[i].username == username) return i;
+    }
+    return -1;
+  };
+
+  window.hightimes.searchUsername = function (query) {
+    var promise = new hightimes.Promise();
+    instagram.searchUsers(query).ok(function(response){
+      var users = response.data;
+      var index = indexOf(users, query);
+      console.log("index: " + index);
+      if(index != -1){
+        promise.fulfill(users[index]);
+      } else{
+        promise.sorry(users);
+      }
+    }).error(function(data){
+      promise.sorry(data);
+    });
+    return promise;
+  };
 
 }).call(this);
