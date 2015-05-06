@@ -95,7 +95,7 @@ input {
 }
 
 .full-screen {
-  height: 100vh; /*Each section of the size of viewport.*/
+  min-height: 100vh; /*Each section of the size of viewport.*/
 }
 
 .bad-action{

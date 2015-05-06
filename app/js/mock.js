@@ -143,8 +143,41 @@
     ]
   };
 
+  var FakeMatrix = function (matrix) {
+    this.activityAt = function (a, b) {
+      return matrix[a][b];
+    }
+    this.average = function () {
+      return 4
+    };
+    this.highest = function () {
+      return 7
+    };
+    this.lowest = function () {
+      return 0
+    };
+  };
+
+  var fakeUser = {
+    "username": "balajeevenkatesh",
+    "bio": "",
+    "website": "",
+    "profile_picture": "https://igcdn-photos-c-a.akamaihd.net/hphotos-ak-xap1/t51.2885-19/10853151_412920515533426_1539642759_a.jpg",
+    "full_name": "Balajee Venkatesh",
+    "counts": {
+      "media": 12,
+      "followed_by": 231,
+      "follows": 517
+    },
+    "id": "1267501370"
+  };
+
   hightimes.mock = {
     media: sampleMedia,
-    followers: followedBy
+    followers: followedBy,
+    activityMatrix: function (values) {
+      return new FakeMatrix(values)
+    },
+    user: fakeUser
   }
 }).call(this);

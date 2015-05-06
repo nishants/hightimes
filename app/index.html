@@ -9,6 +9,9 @@
     <script src="js/instagram.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/views/login-page.js"></script>
+    <script src="js/views/dashboard-page.js"></script>
+    <script src="js/mock.js"></script>
+    <script src="js/user-activity-matrix.js"></script>
 </head>
 
 <body>
@@ -40,95 +43,54 @@
 </div>
 
 <script>
-    var init = function () {
-        hightimes.init();
+    var renderHomePage = function () {
+        var onLogin = function (user) {
+            var matrix = new hightimes.UserActivityMatrix(3);
 
-        var DashBoard = function($page, user, activityMatrix){
-
-            var weight = function(value){
-                if(!value) return 0;
-
-                if(value > activityMatrix.average()) return  2;
-                if(value < activityMatrix.average()) return 0;
-                return 1;
-            };
-
-            var indicatorAt = function(day, period){
-                return {"set": function(weight){
-                    $("#indicator"+day+""+period).removeClass("indicator-level-0");
-                    $("#indicator"+day+""+period).removeClass("indicator-level-1");
-                    $("#indicator"+day+""+period).removeClass("indicator-level-2");
-
-                    $("#indicator"+day+""+period).addClass("indicator-level-"+weight);
-                }};
-            };
-
-            var render = function(){
-                for(var day = 0; day < 7; day ++){
-                    for(var period = 0; period < 8; period++){
-                        var indicatorWeight = weight(activityMatrix.activityAt(day, period));
-                        indicatorAt(day, period).set(indicatorWeight);
-                    }
-                }
-            };
-
-            this.show = function(){
-                $page.show();
-                render();
-//                setInterval(function(){
-//                    render();
-//                }, 1000);
-            };
+            hightimes.showDashboard(
+                    $("#dashboard"),
+                    user,
+                    matrix
+            );
         };
 
-//        var onLogin = function(){
-//            new DashBoard($("#dashboard"), matrix).show();
-//        };
-//
-//        hightimes.showLoginPage(
-//                $("#login-page"),
-//                onLogin
-//        );
+        hightimes.showLoginPage(
+                $("#login-page"),
+                onLogin
+        );
+    };
 
+    var renderDashboard = function () {
         var matrix = [[], [], [], [], [], [], []];
-        matrix[0][7] = 4;
-        matrix[1][7] = 3;
-        matrix[3][7] = 5;
+        matrix[0][7] = 7;
+        matrix[1][7] = 1;
+        matrix[3][7] = 7;
         matrix[4][7] = 4;
-        matrix[5][7] = 5;
+        matrix[5][7] = 7;
         matrix[6][7] = 4;
 
-        matrix[1][1]  = 5;
-        matrix[2][2]  = 1;
-        matrix[3][3]  = 7;
+        matrix[1][1] = 5;
+        matrix[2][2] = 1;
+        matrix[3][3] = 7;
 
-        setInterval(function(){
-            var day = parseInt(((Math.random() *  7)%7));
-            var period = parseInt(((Math.random() *  8)%8));
-            var weigth = parseInt(((Math.random() *  8)%8));
+        setInterval(function () {
+            var day = parseInt(((Math.random() * 7) % 7));
+            var period = parseInt(((Math.random() * 8) % 8));
+            var weigth = parseInt(((Math.random() * 8) % 8));
             matrix[day][period] = weigth;
         }, 1000);
 
-        var FakeMatrix = function(matrix){
-            this.activityAt = function(a, b){ return matrix[a][b]; }
-            this.average    = function(){return 4};
-            this.highest    = function(){return 7};
-            this.lowest     = function(){return 0};
-        };
-        var fakeUser = {
-            "username": "balajeevenkatesh",
-            "bio": "",
-            "website": "",
-            "profile_picture": "https://igcdn-photos-c-a.akamaihd.net/hphotos-ak-xap1/t51.2885-19/10853151_412920515533426_1539642759_a.jpg",
-            "full_name": "Balajee Venkatesh",
-            "counts": {
-                "media": 12,
-                "followed_by": 231,
-                "follows": 517
-            },
-            "id": "1267501370"
-        };
-        new DashBoard($("#dashboard-page"), fakeUser, new FakeMatrix(matrix)).show();
+
+        hightimes.showDashboard(
+                $("#dashboard-page"),
+                hightimes.mock.fakeUser,
+                hightimes.mock.activityMatrix(matrix)
+        );
+    };
+
+    var init = function () {
+        hightimes.init();
+        renderDashboard();
     };
 
     $(document).ready(init);
