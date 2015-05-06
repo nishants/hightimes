@@ -4,6 +4,9 @@
     <script src="js/hightimes.js"></script>
     <script src="js/config.js"></script>
     <script src="js/instagram.js"></script>
+    <script src="js/hightimes/page.js"></script>
+    <script src="js/hightimes/paged-resource.js"></script>
+    <script src="js/mock.js"></script>
 </head>
 
 <body>
@@ -11,70 +14,21 @@
 <p id="welcome">Wait while we load you profile....</p>
 </body>
 <script>
-    $(document).ready(hightimes.login);
 
-    var Page = function(data){
-        this._data = data;
-    };
-    Page.prototype.hasError = function(){
-        return this._data.meta.code != 200;
-    };
+    var Page = hightimes.Page;
+    var PagedResource = hightimes.PagedResource;
 
-    Page.prototype.getError = function(){
-        return this._data.meta.error_type + ": " +this._data.meta.error_message;
-    };
-
-    Page.prototype.hasNext = function(){
-        return !!this._data.pagination.next_url;
-    };
-
-    Page.prototype.nextUrl = function(){
-        return this._data.pagination.next_url;
-    };
-
-
-    Page.prototype.dataList = function(){
-        return this._data.data;
-    };
-
-
-
-    var PagedResource = function(url){
-        this.url = url;
-    };
-
-    PagedResource.prototype.fetchPage = function(url, onFetch){
-        $.ajax({
-            url: url,
-            dataType: 'jsonp',
-            type: 'GET',
-            data: {client_id: "eafbdb4095514998ad2d06fe47f8db03"},
-            success: onFetch,
-            error: function (data) {
-                console.log(data);
-            }
-        })
-    };
-
-    PagedResource.prototype.forEach = function(callback){
-        var fetchPage = this.fetchPage;
-
-        var load = function(url, fetchNextPage, callback){
-            fetchNextPage(url, function (response) {
-                var page = new Page(response);
-                if(page.hasError()){
-                    console.error(page.getError()+" -url: " +url);
-                } else{
-                    callback(page);
-                    if(page.hasNext()){
-                        load(page.nextUrl(),fetchNextPage, callback)
-                    }
-                }
-            })
+    var mockRequests = function(){
+        $.ajax = function(params){
+          if(params.url.indexOf("/media/recent") != -1)  params.success(hightimes.mock.media) ;
+          if(params.url.indexOf("/followed-by")  != -1)  params.success(hightimes.mock.followers);
         };
-
-        load(this.url, fetchPage, callback);
     };
+
+    var init = function(){
+        mockRequests();
+    };
+    $(document).ready(init);
 
 
     var forAllPostsOfFollowersDo = function(userID, forEachFollowersDo, forEachFollowerPostDo){

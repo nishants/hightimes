@@ -22,5 +22,9 @@
     return !this.respone.pagination.next_url;
   };
 
+  Page.prototype.dataList = function(){
+    return this.respone.data;
+  };
+
   window.hightimes.Page = Page;
 }).call(this);
