@@ -34,9 +34,6 @@
     this.show = function () {
       $page.show();
       render();
-//                setInterval(function(){
-//                    render();
-//                }, 1000);
     };
   };
 

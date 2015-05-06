@@ -156,6 +156,10 @@
     this.lowest = function () {
       return 0
     };
+    var activityMatrix = new hightimes.UserActivityMatrix(3);
+    activityMatrix.matrix = matrix;
+
+    return activityMatrix;
   };
 
   var fakeUser = {

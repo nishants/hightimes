@@ -12,6 +12,8 @@
     <script src="js/views/dashboard-page.js"></script>
     <script src="js/mock.js"></script>
     <script src="js/user-activity-matrix.js"></script>
+    <script src="js/hightimes/page.js"></script>
+    <script src="js/hightimes/paged-resource.js"></script>
 </head>
 
 <body>
@@ -60,7 +62,29 @@
         );
     };
 
-    var renderDashboard = function () {
+    var mockRequests = function () {
+        $.ajax = function (params) {
+            if (params.url.indexOf("/media/recent") != -1)  params.success(hightimes.mock.media);
+            if (params.url.indexOf("/followed-by") != -1)  params.success(hightimes.mock.followers);
+        };
+    };
+
+    var populateActivityMatrix = function (matrix) {
+        mockRequests();
+
+        var forEachFollowersDo = function (user) {
+            console.log("Analyzing behaviour of " + user.full_name)
+        };
+
+        var forEachFollowerPostDo = function (user, post) {
+            console.log(user.full_name + " posted " + post.type + " at " + post.created_time);
+        };
+
+        hightimes.forAllPostsOfFollowersDo("1924007889", forEachFollowersDo, forEachFollowerPostDo);
+    };
+
+    var makeMatrix = function () {
+        var acitvity = new hightimes.UserActivityMatrix(3);
         var matrix = [[], [], [], [], [], [], []];
         matrix[0][7] = 7;
         matrix[1][7] = 1;
@@ -73,24 +97,33 @@
         matrix[2][2] = 1;
         matrix[3][3] = 7;
 
+        acitvity.matrix = matrix;
+        acitvity.average = function () {
+            return 4;
+        };
+        return acitvity;
+    };
+
+    var renderDashboard = function (matrix) {
         setInterval(function () {
             var day = parseInt(((Math.random() * 7) % 7));
             var period = parseInt(((Math.random() * 8) % 8));
             var weigth = parseInt(((Math.random() * 8) % 8));
-            matrix[day][period] = weigth;
+            matrix.matrix[day][period] = weigth;
         }, 1000);
-
 
         hightimes.showDashboard(
                 $("#dashboard-page"),
-                hightimes.mock.fakeUser,
-                hightimes.mock.activityMatrix(matrix)
+                hightimes.mock.user,
+                matrix
         );
     };
 
     var init = function () {
         hightimes.init();
-        renderDashboard();
+        var matrix = makeMatrix();
+        populateActivityMatrix(matrix);
+        renderDashboard(matrix);
     };
 
     $(document).ready(init);
