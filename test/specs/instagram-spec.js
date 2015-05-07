@@ -14,6 +14,17 @@ var clientId = "client-id",
         id: "1924007889"
       }
     },
+    mockjax = function (expected) {
+      $.ajax = function (params) {
+        var matchesMockedParams =
+            expected.url == params.url &&
+            expected.type.toUpperCase() == params.type.toUpperCase() &&
+            expected.dataType.toUpperCase() == params.dataType.toUpperCase() &&
+            expected.data.client_id.toUpperCase() == params.data.client_id.toUpperCase();
+
+        matchesMockedParams ? params.success(expected.response) : params.error();
+      };
+    },
     client;
 
 
@@ -36,7 +47,7 @@ QUnit.test("findUserById", function (assert) {
         assert.deepEqual(user, expectedUser, "should call success with user")
       };
 
-  $.mockjax({
+  mockjax({
     url: expectedURLs.userById,
     type: 'GET',
     dataType: "JSON",
