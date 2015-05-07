@@ -46,4 +46,8 @@
     return promise;
   };
 
+  hightimes.forAllPostsOfFollowersDo = function (userID, forEachFollowersDo, forEachFollowerPostDo) {
+    return instagram.forAllPostsOfFollowersDo(userID, forEachFollowersDo, forEachFollowerPostDo);
+  };
+
 }).call(this);

@@ -1,10 +1,4 @@
-var page,
-    sampleResponse = {
-      "pagination": {},
-      "meta": {"code": 200},
-      "data": [{"field1": "1", "field2": "2"}]
-    },
-
+var Page = hightimes.instagram.Page,
     endPage,
     endPageResponse = {
       "pagination": {},
@@ -24,8 +18,8 @@ var page,
 
 QUnit.module('Page', {
   setup: function() {
-    errorPage = new hightimes.Page(httpErrorResponse);
-    endPage = new hightimes.Page(endPageResponse);
+    errorPage = new Page(httpErrorResponse);
+    endPage = new Page(endPageResponse);
   }
 });
 
