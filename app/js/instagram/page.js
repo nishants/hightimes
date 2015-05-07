@@ -1,7 +1,6 @@
 (function(){
   "use strict"
 
-  // Represents response of a request to instagram api
   var Page = function(httpResponse){
     this.respone = httpResponse;
   };

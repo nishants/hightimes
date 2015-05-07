@@ -46,8 +46,8 @@
     });
   };
 
-  Instagram.prototype.forAllPostsOfFollowersDo = function (userID, forEachFollowersDo, forEachFollowerPostDo) {
-    var url = urls.followers.replace("<user-id>", userID);
+  Instagram.prototype.forAllPostsOfFollowersDo = function (user, forEachFollowersDo, forEachFollowerPostDo) {
+    var url = urls.followers.replace("<user-id>", user.id);
 
     new instagram.PagedResource(url, clientId).forEach(function (page) {
       var followers = page.dataList();

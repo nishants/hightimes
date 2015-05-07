@@ -2,7 +2,7 @@
   "use strict"
 
   var clientId = "client-id",
-      userID = "user-id",
+      user = {id: "user-id"},
       expectedURLs = {
         followersPageOne: "https://api.instagram.com/v1/users/user-id/followed-by",
         followersPageTwo: "https://api.instagram.com/v1/users/user-id/followed-by-page-2",
@@ -83,7 +83,7 @@
     mockjax(params({"url": expectedURLs.followerTwoMediaPageOne, "response": followerTwoMediaPageOne}));
     mockjax(params({"url": expectedURLs.followerTwoMediaPageTwo, "response": followerTwoMediaPageTwo}));
 
-    client.forAllPostsOfFollowersDo(userID, forEachFollowersDo, forEachFollowerPostDo);
+    client.forAllPostsOfFollowersDo(user, forEachFollowersDo, forEachFollowerPostDo);
 
     setTimeout(function () {
       assert.deepEqual(foundFollowers, ["follower-1", "follower-2"], "should find followers from all pages");
