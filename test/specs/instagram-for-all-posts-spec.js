@@ -26,7 +26,7 @@
       },
 
       followerOneMedia = {
-        pagination: {},
+        pagination: {/* empty for last page */},
         meta: {code: 200},
         data: [{created_time: "1430387553"}, {created_time: "1430387553"}]
       },

@@ -1,7 +1,30 @@
 (function () {
   "use strict"
-  var DashBoard = function ($page, user, activityMatrix) {
+  var periodLabels = [
+    "00AM - 03AM",
+    "03AM - 06AM",
+    "06AM - 09AM",
+    "09AM - 12PM",
+    "12PM - 03PM",
+    "03PM - 06PM",
+    "06PM - 09PM",
+    "09PM - 12PM",
+  ];
 
+  var notLabeled = function ($page) {
+    return "" == $page.find(".indicator").first().html().trim();
+  };
+
+  var renderLabels = function ($page) {
+    for (var day = 0; day < 7; day++) {
+      for (var period = 0; period < 8; period++) {
+        var slotLabel = $page.find("#indicator" + day + "" + period);
+        slotLabel.append(periodLabels[period]);
+      }
+    }
+  };
+
+  var DashBoard = function ($page, user, activityMatrix) {
     var weight = function (value) {
       if (!value) return 0;
 
@@ -34,10 +57,14 @@
     this.show = function () {
       $page.show();
       render();
+      return this;
     };
   };
 
   hightimes.showDashboard = function ($page, user, activityMatrix) {
+    if (notLabeled($page)) {
+      renderLabels($page);
+    }
     return new DashBoard($page, user, activityMatrix).show();
   };
 
