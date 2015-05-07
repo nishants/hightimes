@@ -1,13 +1,18 @@
 (function(){
   "use strict"
 
-  var Page = hightimes.Page;
+  var Page = hightimes.Page,
+      urls = {
+        followers: "https://api.instagram.com/v1/users/<user-id>/followed-by",
+        recentMedia: "https://api.instagram.com/v1/users/<user-id>/media/recent"
+      }
+      ;
 
   var PagedResource = function(url){
     this.url = url;
   };
 
-  PagedResource.prototype.fetchPage = function(url, onFetch){
+  var fetchPage = function (url, onFetch) {
     $.ajax({
       url: url,
       dataType: 'jsonp',
@@ -21,8 +26,6 @@
   };
 
   PagedResource.prototype.forEach = function(callback){
-    var fetchPage = this.fetchPage;
-
     var load = function(url, fetchNextPage, callback){
       fetchNextPage(url, function (response) {
         var page = new Page(response);
@@ -41,17 +44,15 @@
   };
 
   var forAllPostsOfFollowersDo = function (userID, forEachFollowersDo, forEachFollowerPostDo) {
-    var url = "https://api.instagram.com/v1/users/<user-id>/followed-by".replace("<user-id>", userID);
-    var pageCount = 1;
+    var url = urls.followers.replace("<user-id>", userID);
 
     new PagedResource(url).forEach(function (page) {
-      console.log("Followers on page-" + (pageCount++) + " : ")
       var followers = page.dataList();
       for (var i = 0; i < followers.length; i++) {
         var follower = followers[i];
         forEachFollowersDo(follower);
 
-        var userPostsUrl = "https://api.instagram.com/v1/users/<user-id>/media/recent".replace("<user-id>", follower.id);
+        var userPostsUrl = urls.recentMedia.replace("<user-id>", follower.id);
         new PagedResource(userPostsUrl).forEach(function (page) {
           if (page.dataList()) {
             var posts = page.dataList();
