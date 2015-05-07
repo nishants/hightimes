@@ -17,32 +17,40 @@
     return -1;
   };
 
-  hightimes.findUserById = function (id) {
+  hightimes.findUserById = function (instagramId) {
     var promise = new hightimes.Promise();
 
-    instagram.findUserById(id).ok(
-        function(response){
-          promise.fulfill(response.data);
-        }
-    ).error(promise.sorry);
+    instagram.findUserById(
+        instagramId,
+        promise.fulfill,
+        promise.sorry);
 
     return promise;
   };
 
   window.hightimes.searchUsername = function (query) {
     var promise = new hightimes.Promise();
-    instagram.searchUsers(query).ok(function(response){
+
+    var success = function (response) {
       var users = response.data;
       var index = indexOf(users, query);
-      console.log("index: " + index);
-      if(index != -1){
+      if (index != -1) {
         promise.fulfill(users[index]);
-      } else{
+      } else {
         promise.sorry(users);
       }
-    }).error(function(data){
+    };
+
+    var failed = function (data) {
       promise.sorry(data);
-    });
+
+    };
+
+    instagram.searchUsers(
+        query,
+        success,
+        failed
+    );
     return promise;
   };
 

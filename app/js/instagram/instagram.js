@@ -18,36 +18,27 @@
     return "https://api.instagram.com/v1/users/search?q=" + query;
   }
 
-  Instagram.prototype.searchUsers = function (query) {
+  Instagram.prototype.searchUsers = function (query, success, failed) {
     var promise = new hightimes.Promise();
     $.ajax({
       url: searchURlFor(query),
       dataType: 'jsonp',
       type: 'GET',
       data: {client_id: this.clientId},
-      success: function (data) {
-        promise.fulfill(data);
-      },
-      error: function (data) {
-        promise.sorry(data);
-      }
+      success: success,
+      error: failed
     });
     return promise;
   };
 
-  Instagram.prototype.findUserById = function (id) {
-    var promise = new hightimes.Promise();
+  Instagram.prototype.findUserById = function (id, success, failed) {
     $.ajax({
       url: user(id),
       dataType: 'jsonp',
       type: 'GET',
       data: {client_id: this.clientId},
-      success: function (data) {
-        promise.fulfill(data);
-      },
-      error: function (data) {
-        promise.sorry(data);
-      }
+      success: success,
+      error: success
     });
     return promise;
   };
