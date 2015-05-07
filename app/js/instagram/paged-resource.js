@@ -9,7 +9,6 @@
 
   var fetchPage = function (url, onFetch) {
     var clientId = "eafbdb4095514998ad2d06fe47f8db03";
-
     $.ajax({
       url: url,
       dataType: 'jsonp',
