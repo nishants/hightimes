@@ -19,7 +19,6 @@
   }
 
   Instagram.prototype.searchUsers = function (query, success, failed) {
-    var promise = new hightimes.Promise();
     $.ajax({
       url: searchURlFor(query),
       dataType: 'jsonp',
@@ -28,7 +27,6 @@
       success: success,
       error: failed
     });
-    return promise;
   };
 
   Instagram.prototype.findUserById = function (id, success, failed) {
@@ -38,9 +36,8 @@
       type: 'GET',
       data: {client_id: this.clientId},
       success: success,
-      error: success
+      error: failed
     });
-    return promise;
   };
 
   Instagram.prototype.forAllPostsOfFollowersDo = function (userID, forEachFollowersDo, forEachFollowerPostDo) {
@@ -66,7 +63,6 @@
       }
     });
   };
-  hightimes.Instagram = Instagram;
 
   window.instagram = {}
   window.instagram.clientWith = function (clientId) {

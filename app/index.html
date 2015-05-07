@@ -47,6 +47,8 @@
 </div>
 
 <script>
+    var clientId = "eafbdb4095514998ad2d06fe47f8db03";
+
     var renderHomePage = function () {
         var onLogin = function (user) {
             var matrix = new hightimes.UserActivityMatrix(3);
@@ -122,7 +124,7 @@
     };
 
     var init = function () {
-        hightimes.init();
+        hightimes.init(instagram.clientWith(clientId));
         var matrix = makeMatrix();
         populateActivityMatrix(matrix);
         renderDashboard(matrix);

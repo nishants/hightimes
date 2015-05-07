@@ -3,11 +3,10 @@
 
   window.hightimes = {};
 
-  var clientId = "eafbdb4095514998ad2d06fe47f8db03",
-      instagram;
+  var instagram;
 
-  window.hightimes.init = function () {
-    instagram = new hightimes.Instagram(clientId)
+  window.hightimes.init = function (instagramClient) {
+    instagram = instagramClient;
   };
 
   var indexOf = function(users, username){
