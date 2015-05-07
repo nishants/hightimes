@@ -22,10 +22,12 @@
   Instagram.prototype.searchUsers = function (query, success, failed) {
     $.ajax({
       url: searchURlFor(query),
-      dataType: 'jsonp',
+      dataType: 'json',
       type: 'GET',
       data: {client_id: this.clientId},
-      success: success,
+      success: function (response) {
+        success(response.data)
+      },
       error: failed
     });
   };
