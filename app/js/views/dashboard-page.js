@@ -1,5 +1,14 @@
 (function () {
   "use strict"
+  var dayLabels = [
+    "SUNDAY",
+    "MONDAY",
+    "TUESDAY",
+    "WEDNESDAY",
+    "THURSDAY",
+    "FRIDAY",
+    "SATURDAY",
+  ];
   var periodLabels = [
     "00AM - 03AM",
     "03AM - 06AM",
@@ -19,7 +28,7 @@
     for (var day = 0; day < 7; day++) {
       for (var period = 0; period < 8; period++) {
         var slotLabel = $page.find("#indicator" + day + "" + period);
-        slotLabel.append(periodLabels[period]);
+        slotLabel.append(periodLabels[period] + "<br>" + dayLabels[day]);
       }
     }
   };
