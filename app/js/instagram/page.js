@@ -6,7 +6,11 @@
     this.respone = httpResponse;
   };
 
-  Page.prototype.hasNext = function(){
+  Page.prototype.nextUrl = function () {
+    return this.respone.pagination.next_url;
+  };
+
+  Page.prototype.hasNext = function () {
     return !this.hasError() && !this.isEndPage();
   };
 

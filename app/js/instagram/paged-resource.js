@@ -1,18 +1,18 @@
 (function () {
   "use strict"
 
-  var Page = instagram.Page
+  var Page = instagram.Page,
+      clientId,
+      PagedResource = function (url, client) {
+        this.url = url;
+        clientId = client;
+      };
 
-  var PagedResource = function (url) {
-    this.url = url;
-  };
-
-  var fetchPage = function (url, onFetch) {
-    var clientId = "eafbdb4095514998ad2d06fe47f8db03";
+  var fetchNextPage = function (url, onFetch) {
     $.ajax({
       url: url,
-      dataType: 'jsonp',
-      type: 'GET',
+      dataType: 'json',
+      type: 'get',
       data: {client_id: clientId},
       success: onFetch,
       error: function (data) {
@@ -36,7 +36,7 @@
       })
     };
 
-    load(this.url, fetchPage, callback);
+    load(this.url, fetchNextPage, callback);
   };
 
   instagram.PagedResource = PagedResource;
