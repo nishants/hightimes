@@ -182,3 +182,23 @@ body{
 #dashboard-page{
     padding: 5px;
 }
+
+#user-profile {
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+#userfullname {
+  margin-top: 5vh;
+  color: rgb(59, 153, 179);
+  display: inline-block;
+  margin-right: auto;
+  float: right;
+}
+
+#user-profile-pic {
+  display: inline-block;
+  float: left;
+  height: 10vh;
+}

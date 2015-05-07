@@ -9,6 +9,7 @@
     "FRIDAY",
     "SATURDAY",
   ];
+
   var periodLabels = [
     "00AM - 03AM",
     "03AM - 06AM",
@@ -54,7 +55,17 @@
       };
     };
 
+    var setProfilePic = function (url) {
+      $("#user-profile-pic").attr("src", url);
+    };
+
+    var setUserName = function (name) {
+      $("#userfullname").html(name);
+    };
+
     var render = function () {
+      setProfilePic(user.profile_picture);
+      setUserName(user.full_name)
       for (var day = 0; day < 7; day++) {
         for (var period = 0; period < 8; period++) {
           var indicatorWeight = weight(activityMatrix.activityAt(day, period));
