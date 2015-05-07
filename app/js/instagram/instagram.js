@@ -2,6 +2,7 @@
   "use strict"
 
   var urls = {
+    userId: "https://api.instagram.com/v1/users/<user-id>",
     followers: "https://api.instagram.com/v1/users/<user-id>/followed-by",
     recentMedia: "https://api.instagram.com/v1/users/<user-id>/media/recent"
   };
@@ -29,13 +30,15 @@
     });
   };
 
-  Instagram.prototype.findUserById = function (id, success, failed) {
+  Instagram.prototype.findUserById = function (userID, success, failed) {
     $.ajax({
-      url: user(id),
-      dataType: 'jsonp',
+      url: urls.userId.replace("<user-id>", userID),
+      dataType: 'JSON',
       type: 'GET',
       data: {client_id: this.clientId},
-      success: success,
+      success: function (response) {
+        success(response.data);
+      },
       error: failed
     });
   };

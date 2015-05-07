@@ -1,27 +1,52 @@
-var instagram = new hightimes.Instagram();
+var clientId = "client-id",
+    userID = "user-id",
+    expectedURLs = {
+      userById: "https://api.instagram.com/v1/users/user-id"
+    },
+    userByIdResponse = {
+      meta: {
+        "code": 200
+      },
+      data: {
+        username: "nishant.singh87",
+        profile_picture: "https://instagramimages-a.akamaihd.net/profiles/anonymousUser.jpg",
+        full_name: "Nishant",
+        id: "1924007889"
+      }
+    },
+    client;
 
 
-QUnit.module('Page', {
+QUnit.module('instagram.js', {
   setup: function () {
-    errorPage = new Page(httpErrorResponse);
-    endPage = new Page(endPageResponse);
+    client = instagram.clientWith(clientId);
   }
 });
 
-QUnit.test("any error code other than 200 is http error(only get request supported)", function (assert) {
-  assert.ok(errorPage.hasError(), "response has error if meta.code is not 200");
+QUnit.test("clientWith", function (assert) {
+  assert.ok(client, "instagram.clientWith(clientId) should return new client for the client id");
 });
 
-QUnit.test("error page has no next", function (assert) {
-  assert.ok(!errorPage.hasNext(), "hasNext is false if hasError is true")
-});
+QUnit.test("findUserById", function (assert) {
+  var expectedUser = userByIdResponse.data,
+      assertNotCalled = function () {
+        assert.ok(false, "should not invoke failed");
+      },
+      assertUser = function (user) {
+        assert.deepEqual(user, expectedUser, "should call success with user")
+      };
 
-QUnit.test("should return error", function (assert) {
-  assert.deepEqual(errorPage.getError(), httpErrorResponse.meta, "should return response.meta on getError")
-});
+  $.mockjax({
+    url: expectedURLs.userById,
+    type: 'GET',
+    dataType: "JSON",
+    data: {client_id: clientId},
+    response: userByIdResponse,
+    success: assertUser,
+    error: assertNotCalled
+  });
 
-QUnit.test("end page has no next", function (assert) {
-  assert.ok(!endPage.hasNext(), "isEndPage is true if response.pagination == {}")
-  assert.ok(!endPage.hasNext(), "hasNext is false if response.pagination == {}")
-});
+  client.findUserById(userID, assertUser, assertNotCalled)
 
+  assert.expect(1, "Should invoke onSuccess callback.");
+});
