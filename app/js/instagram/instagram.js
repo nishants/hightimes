@@ -12,6 +12,17 @@
     clientId = client;
   };
 
+  var get = function (url, success, failed) {
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      type: 'get',
+      data: {client_id: clientId},
+      success: success,
+      error: failed
+    });
+  };
+
   var user = function (id) {
     return "https://api.instagram.com/v1/users/" + id;
   }
@@ -21,42 +32,35 @@
   }
 
   Instagram.prototype.searchUsers = function (query, success, failed) {
-    $.ajax({
-      url: searchURlFor(query),
-      dataType: 'json',
-      type: 'get',
-      data: {client_id: clientId},
-      success: function (response) {
-        success(response.data)
-      },
-      error: failed
-    });
+    get(searchURlFor(query),
+        function (response) {
+          success(response.data)
+        },
+        failed
+    );
   };
 
   Instagram.prototype.findUserById = function (userID, success, failed) {
-    $.ajax({
-      url: urls.userId.replace("<user-id>", userID),
-      dataType: 'json',
-      type: 'get',
-      data: {client_id: clientId},
-      success: function (response) {
-        success(response.data);
-      },
-      error: failed
-    });
+    get(
+        urls.userId.replace("<user-id>", userID),
+        function (response) {
+          success(response.data);
+        },
+        failed
+    );
   };
 
   Instagram.prototype.forAllPostsOfFollowersDo = function (user, forEachFollowersDo, forEachFollowerPostDo) {
     var url = urls.followers.replace("<user-id>", user.id);
 
-    new instagram.PagedResource(url, clientId).forEach(function (page) {
+    instagram.pages(url, get).forEach(function (page) {
       var followers = page.dataList();
       for (var i = 0; i < followers.length; i++) {
         var follower = followers[i];
         forEachFollowersDo(follower);
 
         var userPostsUrl = urls.recentMedia.replace("<user-id>", follower.id);
-        new instagram.PagedResource(userPostsUrl, clientId).forEach(function (page) {
+        instagram.pages(userPostsUrl, get).forEach(function (page) {
           if (page.dataList()) {
             var posts = page.dataList();
             for (var i = 0; i < posts.length; i++) {
