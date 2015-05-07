@@ -26,5 +26,5 @@
     return this.respone.data;
   };
 
-  hightimes.instagram.Page = Page;
+  instagram.Page = Page;
 }).call(this);

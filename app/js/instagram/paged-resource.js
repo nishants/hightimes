@@ -1,7 +1,7 @@
 (function () {
   "use strict"
 
-  var Page = hightimes.instagram.Page
+  var Page = instagram.Page
 
   var PagedResource = function (url) {
     this.url = url;
@@ -38,6 +38,6 @@
 
     load(this.url, fetchPage, callback);
   };
-  hightimes.instagram.PagedResource = PagedResource;
 
+  instagram.PagedResource = PagedResource;
 }).call(this);

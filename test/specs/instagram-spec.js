@@ -1,23 +1,8 @@
-var Page = instagram.Page,
-    endPage,
-    endPageResponse = {
-      "pagination": {},
-      "meta": {"code": 200},
-      "data": [{"field1": "1", "field2": "2"}]
-    },
-
-    errorPage,
-    httpErrorResponse =  {
-      "meta": {
-        "error_type": "APINotAllowedError",
-        "code": 400,
-        "error_message": "you cannot view this resource"
-      }
-    };
+var instagram = new hightimes.Instagram();
 
 
 QUnit.module('Page', {
-  setup: function() {
+  setup: function () {
     errorPage = new Page(httpErrorResponse);
     endPage = new Page(endPageResponse);
   }

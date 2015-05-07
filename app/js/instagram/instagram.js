@@ -55,14 +55,14 @@
   Instagram.prototype.forAllPostsOfFollowersDo = function (userID, forEachFollowersDo, forEachFollowerPostDo) {
     var url = urls.followers.replace("<user-id>", userID);
 
-    new hightimes.instagram.PagedResource(url).forEach(function (page) {
+    new instagram.PagedResource(url).forEach(function (page) {
       var followers = page.dataList();
       for (var i = 0; i < followers.length; i++) {
         var follower = followers[i];
         forEachFollowersDo(follower);
 
         var userPostsUrl = urls.recentMedia.replace("<user-id>", follower.id);
-        new hightimes.instagram.PagedResource(userPostsUrl).forEach(function (page) {
+        new instagram.PagedResource(userPostsUrl).forEach(function (page) {
           if (page.dataList()) {
             var posts = page.dataList();
             for (var i = 0; i < posts.length; i++) {
@@ -75,7 +75,11 @@
       }
     });
   };
-
-  hightimes.instagram = {};
   hightimes.Instagram = Instagram;
+
+  window.instagram = {}
+  window.instagram.clientWith = function (clientId) {
+    return new Instagram(clientId);
+  };
+
 }).call(this);
