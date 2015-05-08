@@ -1,81 +1,72 @@
 (function () {
   "use strict"
 
-  var urls = {
-        userId: "https://api.instagram.com/v1/users/<user-id>",
-        followers: "https://api.instagram.com/v1/users/<user-id>/followed-by",
-        recentMedia: "https://api.instagram.com/v1/users/<user-id>/media/recent"
+  var
+      searchURlFor = function (query) {
+        return "https://api.instagram.com/v1/users/search?q=" + query;
       },
-      clientId;
 
-  var Instagram = function (client) {
-    clientId = client;
-  };
+      urlForPostsOf = function (user) {
+        return "https://api.instagram.com/v1/users/<user-id>/media/recent".replace("<user-id>", user.id)
+      },
 
-  var get = function (url, success, failed) {
-    $.ajax({
-      url: url,
-      dataType: 'json',
-      type: 'get',
-      data: {client_id: clientId},
-      success: success,
-      error: failed
-    });
-  };
+      followersURlOf = function (user) {
+        return "https://api.instagram.com/v1/users/<user-id>/followed-by".replace("<user-id>", user.id)
+      },
 
-  var user = function (id) {
-    return "https://api.instagram.com/v1/users/" + id;
-  }
+      urlFor = function (userID) {
+        return "https://api.instagram.com/v1/users/<user-id>".replace("<user-id>", userID);
+      };
 
-  var searchURlFor = function (query) {
-    return "https://api.instagram.com/v1/users/search?q=" + query;
-  }
+  var Instagram = function () {
+    this.searchUsers = function (query, success, failed) {
+      instagram.get(searchURlFor(query),
+          function (response) {
+            success(response.data)
+          },
+          failed
+      );
+    };
 
-  var urlForPostsOf = function (user) {
-    return urls.recentMedia.replace("<user-id>", user.id)
-  };
-  var followersURlOf = function (user) {
-    return urls.followers.replace("<user-id>", user.id)
-  };
+    this.findUserById = function (userID, success, failed) {
+      instagram.get(
+          urlFor(userID),
+          function (response) {
+            success(response.data);
+          },
+          failed
+      );
+    };
 
-  Instagram.prototype.searchUsers = function (query, success, failed) {
-    get(searchURlFor(query),
-        function (response) {
-          success(response.data)
-        },
-        failed
-    );
-  };
-
-  Instagram.prototype.findUserById = function (userID, success, failed) {
-    get(
-        urls.userId.replace("<user-id>", userID),
-        function (response) {
-          success(response.data);
-        },
-        failed
-    );
-  };
-
-  Instagram.prototype.forAllPostsOfFollowersDo = function (user, forEachFollowersDo, forEachFollowerPostDo) {
-    instagram.forPagesAt(followersURlOf(user)).each(function (followersPage) {
-      followersPage.dataList().forEach(function (follower) {
-        forEachFollowersDo(follower);
-        instagram.forPagesAt(urlForPostsOf(follower)).each(function (page) {
-          if (page.dataList()) {
-            page.dataList().forEach(function (post) {
-              forEachFollowerPostDo(post, follower);
-            });
-          }
+    this.forAllPostsOfFollowersDo = function (user, forEachFollowersDo, forEachFollowerPostDo) {
+      instagram.forPagesAt(followersURlOf(user)).each(function (followersPage) {
+        followersPage.dataList().forEach(function (follower) {
+          forEachFollowersDo(follower);
+          instagram.forPagesAt(urlForPostsOf(follower)).each(function (page) {
+            if (page.dataList()) {
+              page.dataList().forEach(function (post) {
+                forEachFollowerPostDo(post, follower);
+              });
+            }
+          });
         });
       });
-
-    });
+    };
   };
 
   window.instagram = {};
-  instagram.get = get;
   instagram.clientWith = function (clientId) {
+    instagram.get = function (url, success, failed) {
+      $.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'get',
+        data: {client_id: clientId},
+        success: success,
+        error: failed
+      });
+    };
+
     return new Instagram(clientId);
   };
 

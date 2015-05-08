@@ -4,12 +4,12 @@
   var Page = instagram.Page,
       get = instagram.get;
 
-  instagram.forPagesAt = function (url, fetchNextPage) {
+  instagram.forPagesAt = function (url) {
 
     var PagedResource = function (url) {
       this.each = function (callback) {
         var load = function (url, callback) {
-          get(url, function (response) {
+          instagram.get(url, function (response) {
             var page = new Page(response);
             if (page.hasError()) {
               console.error(page.getError() + " at -url: " + url);
@@ -25,7 +25,7 @@
       };
     };
 
-    return new PagedResource(url, fetchNextPage);
+    return new PagedResource(url);
   }
 
 }).call(this);
