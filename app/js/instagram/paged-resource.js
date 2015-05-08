@@ -4,13 +4,13 @@
   var Page = instagram.Page,
       get = instagram.get;
 
-  instagram.pages = function (url, fetchNextPage) {
+  instagram.forPagesAt = function (url, fetchNextPage) {
 
     var PagedResource = function (url) {
       this.url = url;
     };
 
-    PagedResource.prototype.forEach = function (callback) {
+    PagedResource.prototype.each = function (callback) {
       var load = function (url, callback) {
         get(url, function (response) {
           var page = new Page(response);

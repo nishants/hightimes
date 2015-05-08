@@ -31,6 +31,13 @@
     return "https://api.instagram.com/v1/users/search?q=" + query;
   }
 
+  var urlForPostsOf = function (user) {
+    return urls.recentMedia.replace("<user-id>", user.id)
+  };
+  var followersURlOf = function (user) {
+    return urls.followers.replace("<user-id>", user.id)
+  };
+
   Instagram.prototype.searchUsers = function (query, success, failed) {
     get(searchURlFor(query),
         function (response) {
@@ -51,26 +58,23 @@
   };
 
   Instagram.prototype.forAllPostsOfFollowersDo = function (user, forEachFollowersDo, forEachFollowerPostDo) {
-    var url = urls.followers.replace("<user-id>", user.id);
 
-    instagram.pages(url, get).forEach(function (page) {
-      var followers = page.dataList();
-      for (var i = 0; i < followers.length; i++) {
-        var follower = followers[i];
+
+    instagram.forPagesAt(followersURlOf(user)).each(function (followersPage) {
+      followersPage.dataList().forEach(function (follower) {
         forEachFollowersDo(follower);
 
-        var userPostsUrl = urls.recentMedia.replace("<user-id>", follower.id);
-        instagram.pages(userPostsUrl, get).forEach(function (page) {
+        instagram.forPagesAt(urlForPostsOf(follower)).each(function (page) {
           if (page.dataList()) {
-            var posts = page.dataList();
-            for (var i = 0; i < posts.length; i++) {
-              forEachFollowerPostDo(posts[i], follower);
-            }
+            page.dataList().forEach(function (post) {
+              forEachFollowerPostDo(post, follower);
+            });
           } else {
             console.error("no posts found for " + follower.id)
           }
         });
-      }
+      });
+
     });
   };
 
