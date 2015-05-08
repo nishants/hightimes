@@ -74,8 +74,9 @@
     });
   };
 
-  window.instagram = {}
-  window.instagram.clientWith = function (clientId) {
+  window.instagram = {};
+  instagram.get = get;
+  instagram.clientWith = function (clientId) {
     return new Instagram(clientId);
   };
 
