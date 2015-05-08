@@ -10,7 +10,7 @@
   };
 
   Page.prototype.hasNext = function () {
-    return !this.hasError() && !this.isEndPage();
+    return !this.hasError() && !!this.respone.pagination.next_url;
   };
 
   Page.prototype.hasError = function(){
@@ -19,10 +19,6 @@
 
   Page.prototype.getError = function(){
     return this.respone.meta;
-  };
-
-  Page.prototype.isEndPage = function(){
-    return !this.respone.pagination.next_url;
   };
 
   Page.prototype.dataList = function(){

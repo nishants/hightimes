@@ -58,19 +58,14 @@
   };
 
   Instagram.prototype.forAllPostsOfFollowersDo = function (user, forEachFollowersDo, forEachFollowerPostDo) {
-
-
     instagram.forPagesAt(followersURlOf(user)).each(function (followersPage) {
       followersPage.dataList().forEach(function (follower) {
         forEachFollowersDo(follower);
-
         instagram.forPagesAt(urlForPostsOf(follower)).each(function (page) {
           if (page.dataList()) {
             page.dataList().forEach(function (post) {
               forEachFollowerPostDo(post, follower);
             });
-          } else {
-            console.error("no posts found for " + follower.id)
           }
         });
       });
