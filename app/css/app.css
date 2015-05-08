@@ -125,15 +125,6 @@ input {
   background-image: url("../images/blue-lit.jpg");
 }
 
-#login #brand {
-  max-width: 60%;
-  padding: 5%;
-}
-
-#login > .attached-input-label {
-  padding-left: 10%;
-}
-
 .username-option {
   width: 100%;
 }
@@ -231,11 +222,18 @@ input {
 
 body {
   font-family: kaushan;
-  width: 100%;
   margin-left: auto;
   margin-right: auto;
   font-size: 5vh;
   background: rgba(78, 174, 202, 0.67);
+}
+
+.banner-text {
+  font-size: 15vh;
+}
+
+.txt-deep-blue {
+  color: rgb(21, 91, 120);
 }
 
 @font-face {
