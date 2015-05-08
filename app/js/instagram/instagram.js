@@ -2,25 +2,25 @@
   "use strict"
 
   var
-      searchURlFor = function (query) {
-        return "https://api.instagram.com/v1/users/search?q=" + query;
+      searchFor = function (username) {
+        return "https://api.instagram.com/v1/users/search?q=" + username;
       },
 
-      urlForPostsOf = function (user) {
+      postsOf = function (user) {
         return "https://api.instagram.com/v1/users/<user-id>/media/recent".replace("<user-id>", user.id)
       },
 
-      followersURlOf = function (user) {
+      followersOf = function (user) {
         return "https://api.instagram.com/v1/users/<user-id>/followed-by".replace("<user-id>", user.id)
       },
 
-      urlFor = function (userID) {
+      userFor = function (userID) {
         return "https://api.instagram.com/v1/users/<user-id>".replace("<user-id>", userID);
       };
 
   var Instagram = function () {
-    this.searchUsers = function (query, success, failed) {
-      instagram.get(searchURlFor(query),
+    this.searchUsers = function (username, success, failed) {
+      instagram.get(searchFor(username),
           function (response) {
             success(response.data)
           },
@@ -30,7 +30,7 @@
 
     this.findUserById = function (userID, success, failed) {
       instagram.get(
-          urlFor(userID),
+          userFor(userID),
           function (response) {
             success(response.data);
           },
@@ -39,10 +39,10 @@
     };
 
     this.forAllPostsOfFollowersDo = function (user, forEachFollowersDo, forEachFollowerPostDo) {
-      instagram.forPagesAt(followersURlOf(user)).each(function (followersPage) {
+      instagram.forPagesAt(followersOf(user)).each(function (followersPage) {
         followersPage.dataList().forEach(function (follower) {
           forEachFollowersDo(follower);
-          instagram.forPagesAt(urlForPostsOf(follower)).each(function (page) {
+          instagram.forPagesAt(postsOf(follower)).each(function (page) {
             if (page.dataList()) {
               page.dataList().forEach(function (post) {
                 forEachFollowerPostDo(post, follower);

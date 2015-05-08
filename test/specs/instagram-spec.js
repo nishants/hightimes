@@ -1,6 +1,7 @@
 (function () {
   "use strict"
 
+  //TODO test for pages with error.
   var clientId = "client-id",
       userID = "user-id",
       expectedURLs = {
