@@ -1,51 +1,77 @@
 /* **************** Undo's *****************/
-.undo-image{
+.undo-image {
+  /* max-width: 50vh; */
+  height: 50vh;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-button{
-  height: 2.9em;
+button {
   padding: 0;
-  margin: 0px;
+  margin: 0;
+  width: 100%;
+  font-size: 10vh;
   border: none;
+  background-color: rgb(184, 234, 235);
   color: rgb(27, 123, 163);
 }
 
 input {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  font-size: 10vh;
   border: none;
-  background: rgba(255,255,255,0.25);
-  color: white;
-  height: 2.9em;
-  padding-left: 2%;
+  background: rgba(255, 255, 255, 0.25);
+  color: rgb(27, 123, 163);
+}
+
+.attached-input-button {
+  display: table;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.attached-input-button > input {
+  max-width: 66%;
+  padding: 2%;
+}
+
+.attached-input-button > button {
+  max-width: 21%;
+  padding: 2%;
 }
 
 ::-webkit-input-placeholder {
-  color: rgb(193, 239, 238);
-;
+  color: rgb(193, 239, 238);;
 }
 
-:-moz-placeholder { /* Firefox 18- */
+:-moz-placeholder {
+  /* Firefox 18- */
   color: rgb(193, 239, 238);
 }
 
-::-moz-placeholder {  /* Firefox 19+ */
+::-moz-placeholder {
+  /* Firefox 19+ */
   color: rgb(193, 239, 238);
 }
 
 :-ms-input-placeholder {
   color: rgb(193, 239, 238);
 }
+
 /* **************** Styles**************** */
-.btn{
+.btn {
   background-color: rgb(208, 243, 243);
   padding: 5px;
   margin: 5px;
   color: rgb(24, 117, 157);
 }
 
-.modal-window{
+.modal-window {
   position: absolute;
   margin: 10%;
   top: 15%;
@@ -57,41 +83,27 @@ input {
   padding-top: 0;
 }
 
-.img-background{
+.img-background {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   background-position: center center;
 }
 
-.attached-input-label{
-  margin-bottom: 10%;
-}
-
-.attached-input-label > input{
-  width: 80%;
-}
-
-.pull-left{
+.pull-left {
   float: left;
   clear: left;
 }
 
-.attached-input-label > button{
-  width: 15%;
-  position: relative;
-  left: -10%;
-  background-color: rgb(208, 243, 243);
-}
-
-.txt-high-blue{
+.txt-high-blue {
   color: rgb(26, 122, 162);
 }
 
-.txt-low-blue{
+.txt-low-blue {
   color: rgb(208, 243, 243);
 }
-.centered{
+
+.centered {
   text-align: center;
 }
 
@@ -99,66 +111,54 @@ input {
   min-height: 100vh; /*Each section of the size of viewport.*/
 }
 
-.bad-action{
+.bad-action {
   color: rgb(187, 222, 222);;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
 /* **************** Masking **************** */
 
-.img-bg-blue-lit{
+.img-bg-blue-lit {
   background-image: url("../images/blue-lit.jpg");
 }
 
-#login #brand{
+#login #brand {
   max-width: 60%;
   padding: 5%;
 }
 
-#login > .attached-input-label{
+#login > .attached-input-label {
   padding-left: 10%;
 }
 
-#login-page{
-  padding-top: 25%;
-  padding-left: 10%;
+.username-option {
+  width: 100%;
 }
 
-.username-option{
- width: 100%;
-}
-
-body{
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  background: rgba(78, 174, 202, 0.67);
-}
-
-.close-modal{
+.close-modal {
   width: 20px;
   line-height: 20px;
 }
 
-.modal-message{
+.modal-message {
   color: rgb(208, 243, 243);
   border-bottom: 1px solid rgba(208, 243, 243, 0.53);
   text-shadow: 0 0 3px rgb(28, 123, 164);
 }
 
-.indicator-level-0{
+.indicator-level-0 {
   background-color: #eee;
   display: none !important;
 }
 
-.indicator-level-1{
+.indicator-level-1 {
   background-color: #d6e685;
 }
 
-.indicator-level-2{
+.indicator-level-2 {
   background-color: #8cc665;
 }
 
@@ -170,42 +170,37 @@ body{
   background-color: #1e6823;
 }
 
-.weekday{
-  background: rgba(0,0,0,0.1);
+.weekday {
+  background: rgba(0, 0, 0, 0.1);
   margin-bottom: 5px;
-  /* padding-top: 5px; */
 }
 
-.indicator{
+.indicator {
   display: inline-block;
   margin: 5px;
   padding: 5%;
-  font-size: 100%;
 }
 
-.day-label{
+.day-label {
   display: block;
   border: none;
 }
 
-#dashboard-page{
-    padding: 5px;
-}
-
-#user-profile{
+#user-profile {
   padding: 5px;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 
-#userfullname{
-  margin-top: 5vh;   color: rgb(59, 153, 179);
+#userfullname {
+  margin-top: 5vh;
+  color: rgb(59, 153, 179);
   display: inline-block;
   margin-right: auto;
   float: right;
 }
 
-#user-profile-pic{
+#user-profile-pic {
   display: inline-block;
   float: left;
   max-height: 10vh;
@@ -225,4 +220,19 @@ body{
   min-height: 20px;
   min-width: 20px;
   vertical-align: top;
+}
+
+#login-page {
+}
+
+#dashboard-page {
+  padding: 5px;
+}
+
+body {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 200%;
+  background: rgba(78, 174, 202, 0.67);
 }
