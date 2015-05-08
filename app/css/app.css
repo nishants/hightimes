@@ -217,8 +217,8 @@ input {
 
 .legends > li {
   display: inline-block;
-  min-height: 20px;
-  min-width: 20px;
+  min-height: 10vh;
+  min-width: 10vh;
   vertical-align: top;
 }
 
