@@ -183,20 +183,16 @@ input {
 #user-profile {
   padding: 5px;
   background-color: rgba(0, 0, 0, 0.5);
-  overflow: hidden;
+  text-align: left;
 }
 
 #userfullname {
-  margin-top: 5vh;
   color: rgb(59, 153, 179);
   display: inline-block;
-  margin-right: auto;
-  float: right;
 }
 
 #user-profile-pic {
   display: inline-block;
-  float: left;
   max-height: 10vh;
 }
 
@@ -239,6 +235,16 @@ body {
   color: rgb(21, 91, 120);
 }
 
+#user-profile-pic {
+  vertical-align: middle;
+  min-height: 15vh;
+  min-width: 15vh;
+  margin: 1vh;
+  background: url("../images/sample-user.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 #trademark {
   padding-top: 5vh;
   padding-bottom: 10vh;
@@ -253,6 +259,7 @@ body {
 input, button, select, textarea {
   border-radius: 1vh;
 }
+
 input:focus,
 select:focus,
 textarea:focus,
