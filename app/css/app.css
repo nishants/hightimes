@@ -38,11 +38,15 @@ input {
 .attached-input-button > input {
   max-width: 66%;
   padding: 2%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .attached-input-button > button {
   max-width: 21%;
   padding: 2%;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 ::-webkit-input-placeholder {
@@ -246,6 +250,9 @@ body {
   src: url("../fonts/kaushan.otf") format("opentype");
 }
 
+input, button, select, textarea {
+  border-radius: 1vh;
+}
 input:focus,
 select:focus,
 textarea:focus,
