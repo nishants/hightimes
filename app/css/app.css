@@ -18,6 +18,7 @@ button {
 }
 
 input {
+  text-indent: 1vh;
   padding: 0;
   margin: 0;
   width: 100%;
@@ -31,8 +32,7 @@ input {
   display: table;
   margin-top: 5vh;
   margin-bottom: 5vh;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
 }
 
 .attached-input-button > input {
@@ -50,7 +50,6 @@ input {
 }
 
 :-moz-placeholder {
-  /* Firefox 18- */
   color: rgb(193, 239, 238);
 }
 
@@ -237,7 +236,8 @@ body {
 }
 
 #trademark {
-  padding-top: 15vh;
+  padding-top: 5vh;
+  padding-bottom: 10vh;
   text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.2), 0px -5px 35px rgba(255, 255, 255, 0.3);
 }
 
