@@ -245,3 +245,11 @@ body {
   font-family: kaushan;
   src: url("../fonts/kaushan.otf") format("opentype");
 }
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+  box-shadow: 1px 1px 14px 14px rgba(164, 233, 235, 1);
+}
