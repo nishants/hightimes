@@ -130,11 +130,7 @@
 
         var onLogin = function (user) {
             hightimes.forEachFollowersRecentMediaDo(user, matrix.add);
-            hightimes.showDashboard(
-                    $("#dashboard"),
-                    user,
-                    matrix
-            );
+            hightimes.showdashboardIn($("#dashboard")).render(user, matrix).show();
         }
 
         hightimes.init(instagram.clientWith(clientId));

@@ -23,13 +23,13 @@ QUnit.test("Should add activity by its created_time", function (assert) {
   var
       matrix = hightimes.newActivityMatrix(),
 
-      sunday = 0,
-      monday = 1,
-      tuesday = 2,
+      sunday    = 0,
+      monday    = 1,
+      tuesday   = 2,
       wednesday = 3,
-      thursday = 4,
-      friday = 5,
-      saturday = 6,
+      thursday  = 4,
+      friday    = 5,
+      saturday  = 6,
 
       am12to03 = 0,
       am03to06 = 1,
@@ -79,19 +79,19 @@ QUnit.test("Should add activity by its created_time", function (assert) {
   matrix.add(activityAt("May 23, 2015 17:59:59"));
 
 
-  assert.equal(matrix.get(sunday, am12to03), 2);
-  assert.equal(matrix.get(sunday, pm09to12), 1);
+  assert.equal(matrix.get(sunday, am12to03), 2, "sunday, am12to03");
+  assert.equal(matrix.get(sunday, pm09to12), 1, "sunday, pm09to12");
 
-  assert.equal(matrix.get(monday, am06to09), 2);
-  assert.equal(matrix.get(monday, pm06to09), 1);
+  assert.equal(matrix.get(monday, am06to09), 2, "monday, am06to09");
+  assert.equal(matrix.get(monday, pm06to09), 1, "monday, pm06to09");
 
-  assert.equal(matrix.get(tuesday, am03to06), 1);
-  assert.equal(matrix.get(wednesday, am03to06), 1);
-  assert.equal(matrix.get(thursday, pm12to03), 1);
-  assert.equal(matrix.get(friday, pm03to06), 1);
+  assert.equal(matrix.get(tuesday, am03to06), 1, "sunday, pm09to12");
+  assert.equal(matrix.get(wednesday, am03to06), 1, "tuesday, am03to06");
+  assert.equal(matrix.get(thursday, pm12to03), 1, "thursday, pm12to03");
+  assert.equal(matrix.get(friday, pm03to06), 1, "friday, pm03to06");
 
-  assert.equal(matrix.get(saturday, am09to12), 2);
-  assert.equal(matrix.get(saturday, pm12to03), 2);
-  assert.equal(matrix.get(saturday, pm03to06), 3);
+  assert.equal(matrix.get(saturday, am09to12), 2, "saturday, am09to12");
+  assert.equal(matrix.get(saturday, pm12to03), 2, "saturday, pm12to03");
+  assert.equal(matrix.get(saturday, pm03to06), 3, "saturday, pm03to06");
 });
 

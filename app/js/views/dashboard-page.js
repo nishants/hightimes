@@ -63,7 +63,7 @@
       $("#userfullname").html(name);
     };
 
-    var render = function () {
+    var render = function (user, activityMatrix) {
       setProfilePic(user.profile_picture);
       setUserName(user.full_name)
       for (var day = 0; day < 7; day++) {
@@ -72,16 +72,15 @@
           indicatorAt(day, period).set(indicatorWeight);
         }
       }
+      return this;
     };
 
     this.show = function () {
       $page.show();
-      render();
-      return this;
     };
   };
 
-  hightimes.showDashboard = function ($page, user, activityMatrix) {
+  hightimes.showdashboardIn = function ($page) {
     if (notLabeled($page)) {
       renderLabels($page);
     }

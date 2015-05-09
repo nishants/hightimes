@@ -4,19 +4,19 @@
   window.hightimes = {};
 
   var instagram,
-      periodLengthInHours = 3;    // Divide a day into hours of 3
+      periodLengthInHours = 3,    // Divide a day into hours of 3
+      indexOf = function (users, username) {
+        for (var i = 0; i < users.length; i++) {
+          if (users[i].username == username) return i;
+        }
+        return -1;
+      };
   ;
 
   window.hightimes.init = function (instagramClient) {
     instagram = instagramClient;
   };
 
-  var indexOf = function(users, username){
-    for(var i = 0; i< users.length; i++){
-      if(users[i].username == username) return i;
-    }
-    return -1;
-  };
 
   hightimes.findUserById = function (instagramId) {
     var promise = new hightimes.Promise();
