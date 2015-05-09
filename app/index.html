@@ -124,87 +124,21 @@
 </div>
 
 <script>
-    var clientId = "eafbdb4095514998ad2d06fe47f8db03";
+    var init = function () {
+        var matrix      = hightimes.newActivityMatrix(),
+            clientId    = "eafbdb4095514998ad2d06fe47f8db03";
 
-    var renderHomePage = function () {
         var onLogin = function (user) {
-            var matrix = new hightimes.UserActivityMatrix(3);
-
+            hightimes.forEachFollowersRecentMediaDo(user, matrix.add);
             hightimes.showDashboard(
                     $("#dashboard"),
                     user,
                     matrix
             );
-        };
+        }
 
-        hightimes.showLoginPage(
-                $("#login-page"),
-                onLogin
-        );
-    };
-
-    var mockRequests = function () {
-        $.ajax = function (params) {
-            if (params.url.indexOf("/media/recent") != -1)  params.success(hightimes.mock.media);
-            if (params.url.indexOf("/followed-by") != -1)  params.success(hightimes.mock.followers);
-        };
-    };
-
-    var populateActivityMatrix = function (matrix) {
-        mockRequests();
-
-        var forEachFollowersDo = function (user) {
-            console.log("Analyzing behaviour of " + user.full_name)
-        };
-
-        var forEachFollowerPostDo = function (user, post) {
-            console.log(user.full_name + " posted " + post.type + " at " + post.created_time);
-        };
-
-        hightimes.forAllPostsOfFollowersDo("1924007889", forEachFollowersDo, forEachFollowerPostDo);
-    };
-
-    var makeMatrix = function () {
-        var acitvity = new hightimes.UserActivityMatrix(3);
-        var matrix = [[], [], [], [], [], [], []];
-        matrix[0][7] = 7;
-        matrix[1][7] = 1;
-        matrix[3][7] = 7;
-        matrix[4][7] = 4;
-        matrix[5][7] = 7;
-        matrix[6][7] = 4;
-
-        matrix[1][1] = 5;
-        matrix[2][2] = 1;
-        matrix[3][3] = 7;
-
-        acitvity.matrix = matrix;
-        acitvity.average = function () {
-            return 4;
-        };
-        return acitvity;
-    };
-
-    var renderDashboard = function (matrix) {
-        setInterval(function () {
-            var day = parseInt(((Math.random() * 7) % 7));
-            var period = parseInt(((Math.random() * 8) % 8));
-            var weigth = parseInt(((Math.random() * 8) % 8));
-            matrix.matrix[day][period] = weigth;
-        }, 1000);
-
-        hightimes.showDashboard(
-                $("#dashboard-page"),
-                hightimes.mock.user,
-                matrix
-        );
-    };
-
-    var init = function () {
         hightimes.init(instagram.clientWith(clientId));
-        var matrix = makeMatrix();
-        populateActivityMatrix(matrix);
-        renderDashboard(matrix);
+        hightimes.showLoginPage($("#login-page"), onLogin);
     };
 
     $(document).ready(init);
@@ -212,7 +146,8 @@
 <div id="select-user-dialog" class="modal-window hidden centered bg-high-blue hidden">
     <div class="close-modal btn bad-action">X</div>
     <p class="modal-message">Please select correct username to continue</p>
-    <form >
+
+    <form>
         <div id="sample-option" class="username-option btn pull-left "> nishant.singh87</div>
     </form>
 </div>
