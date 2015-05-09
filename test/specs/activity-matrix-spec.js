@@ -1,0 +1,97 @@
+var matrix,
+    periodLengthInHours = 3,
+    toUnixTime = function (time) {
+      return Date.parse(time) / 1000;
+    };
+
+
+QUnit.module('UserActivityMatrix', {
+  setup: function () {
+    matrix = new hightimes.newActivityMatrix(periodLengthInHours);
+  }
+});
+
+QUnit.test("Should create slots by periodLengthInHours, 8 by default", function (assert) {
+  assert.equal(new hightimes.UserActivityMatrix(1).slotsPerDay(), 24, "Should create slots by the size of periods in hours");
+  assert.equal(new hightimes.UserActivityMatrix(24).slotsPerDay(), 1, "Should create slots by the size of periods in hours");
+  assert.equal(new hightimes.UserActivityMatrix(12).slotsPerDay(), 2, "Should create slots by the size of periods in hours");
+
+  assert.equal(new hightimes.newActivityMatrix(3).slotsPerDay(), 8, "Should create slots by the size of periods in hours");
+});
+
+QUnit.test("Should add activity by its created_time", function (assert) {
+  var
+      matrix = new hightimes.UserActivityMatrix(12).slotsPerDay(),
+
+      sunday = 0,
+      monday = 1,
+      tuesday = 2,
+      wednesday = 3,
+      thursday = 4,
+      friday = 5,
+      saturday = 6,
+
+      am12to03 = 0,
+      am03to06 = 1,
+      am06to09 = 2,
+      am09to12 = 3,
+
+      pm12to03 = 4,
+      pm03to06 = 5,
+      pm06to09 = 6,
+      pm09to12 = 7,
+
+      activityAt = function (time) {
+        return {created_time: toUnixTime(time)};
+      };
+
+  // Sunday
+  matrix.add(activityAt("May 03, 2015 00:00:01"));
+  matrix.add(activityAt("May 10, 2015 02:59:59"));
+  matrix.add(activityAt("May 17, 2015 21:13:15"));
+
+  // Monday
+  matrix.add(activityAt("May 04, 2015 08:59:59"));
+  matrix.add(activityAt("May 11, 2015 07:21:01"));
+  matrix.add(activityAt("May 18, 2015 18:01:00"));
+
+  // Tuesday
+  matrix.add(activityAt("May 05, 2014 05:00:00"));
+
+  // Wednesday
+  matrix.add(activityAt("May 13, 2014 03:59:59"));
+
+  // Thursday
+  matrix.add(activityAt("May 14, 2014 13:59:59"));
+
+  // Friday
+  matrix.add(activityAt("May 15, 2014 16:00:00"));
+
+  //Saturday
+  matrix.add(activityAt("May 02, 2014 09:21:01"));
+  matrix.add(activityAt("May 16, 2014 11:59:00"));
+
+  matrix.add(activityAt("May 23, 2014 12:00:01"));
+  matrix.add(activityAt("May 09, 2014 14:59:59"));
+
+  matrix.add(activityAt("May 16, 2014 15:00:01"));
+  matrix.add(activityAt("May 23, 2014 16:45:45"));
+  matrix.add(activityAt("May 23, 2014 17:59:59"));
+
+
+  assert(matrix.get(sunday, am12to03), 2);
+  assert(matrix.get(sunday, pm09to12), 1);
+
+  assert(matrix.get(monday, am06to09), 2);
+  assert(matrix.get(monday, pm06to09), 1);
+
+  assert(matrix.get(tuesday, am03to06), 1);
+  assert(matrix.get(wednesday, am03to06), 1);
+  assert(matrix.get(thursday, pm12to03), 1);
+  assert(matrix.get(friday, pm03to06), 1);
+
+  assert(matrix.get(saturday, am09to12), 2);
+  assert(matrix.get(saturday, pm12to03), 2);
+  assert(matrix.get(saturday, pm03to06), 3);
+});
+

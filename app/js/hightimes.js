@@ -3,7 +3,9 @@
 
   window.hightimes = {};
 
-  var instagram;
+  var instagram,
+      periodLengthInHours = 3;    // Divide a day into hours of 3
+  ;
 
   window.hightimes.init = function (instagramClient) {
     instagram = instagramClient;
@@ -53,8 +55,12 @@
     return promise;
   };
 
-  hightimes.forAllPostsOfFollowersDo = function (userID, forEachFollowersDo, forEachFollowerPostDo) {
-    return instagram.forAllPostsOfFollowersDo(userID, forEachFollowersDo, forEachFollowerPostDo);
+  hightimes.newActivityMatrix = function(){
+    return new hightimes.UserActivityMatrix(periodLengthInHours);
+  };
+
+  hightimes.forEachFollowersRecentMediaDo = function (userID, forEachFollowerPostDo) {
+    return instagram.forAllPostsOfFollowersDo(userID, function(){}, forEachFollowerPostDo);
   };
 
 }).call(this);
