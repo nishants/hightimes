@@ -14,6 +14,12 @@
       alert("Please enter a valid user id.");
     };
 
+    var onLoginSucces = function (user) {
+      onLogin(user);
+      destroy();
+    };
+
+
     var showModal = function (data) {
       var onSelect = function (index) {alert("selected : "+ data[index]);}
       hightimes.Modal.create($("#select-user-dialog"), data).show(onSelect);
@@ -31,15 +37,13 @@
     };
 
     $("#login-by-id").mousedown(function(e){
-      hightimes.findUserById(userID()).ok(function(user){
-        onLogin(user);
-        destroy();
-      }).error(invalidUserId);
+      hightimes.findUserById(userID(), onLoginSucces, invalidUserId);
     });
 
     $("#login-by-name").mousedown(function(e){
       hightimes.searchUsername(username()).ok(function (user) {
-        console.log(user.full_name);
+        onLogin(user);
+        destroy();
       }).error(function(users){
         showModal(toUserNames(users));
       });

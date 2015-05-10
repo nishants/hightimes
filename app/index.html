@@ -129,10 +129,11 @@
             clientId    = "eafbdb4095514998ad2d06fe47f8db03";
 
         var onLogin = function (user) {
-            hightimes.forEachFollowersRecentMediaDo(user, matrix.add);
-            hightimes.showdashboardIn($("#dashboard")).render(user, matrix).show();
+            hightimes.forEachFollowersRecentMediaDo(user, function(post){matrix.add(post)});
+            hightimes.showDashboardIn($("#dashboard-page")).render(user, matrix).show();
         }
 
+//        hightimes.mock();
         hightimes.init(instagram.clientWith(clientId));
         hightimes.showLoginPage($("#login-page"), onLogin);
     };

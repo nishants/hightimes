@@ -42,7 +42,7 @@
       instagram.forPagesAt(followersOf(user)).each(function (followersPage) {
         followersPage.dataList().forEach(function (follower) {
           forEachFollowersDo(follower);
-          instagram.forPagesAt(postsOf(follower)).each(function (page) {
+            instagram.forPagesAt(postsOf(follower)).each(function (page) {
             if (page.dataList()) {
               page.dataList().forEach(function (post) {
                 forEachFollowerPostDo(post, follower);
@@ -57,14 +57,20 @@
   window.instagram = {};
   instagram.clientWith = function (clientId) {
     instagram.get = function (url, success, failed) {
-      $.ajax({
-        url: url,
-        dataType: 'json',
-        type: 'get',
-        data: {client_id: clientId},
-        success: success,
-        error: failed
-      });
+      try{
+        $.ajax({
+          url: url,
+          dataType: 'json',
+          type: 'get',
+          data: {client_id: clientId},
+          success: success,
+          error: failed
+        })
+      }catch(clientError){
+        console.error(clientError);
+        failed(clientError);
+      }
+;
     };
 
     return new Instagram(clientId);

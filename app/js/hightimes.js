@@ -18,22 +18,17 @@
   };
 
 
-  hightimes.findUserById = function (instagramId) {
-    var promise = new hightimes.Promise();
-
+  hightimes.findUserById = function (instagramId, sucess, error) {
     instagram.findUserById(
         instagramId,
-        promise.fulfill,
-        promise.sorry);
-
-    return promise;
+        sucess,
+        error);
   };
 
   window.hightimes.searchUsername = function (query) {
     var promise = new hightimes.Promise();
 
-    var success = function (response) {
-      var users = response.data;
+    var success = function (users) {
       var index = indexOf(users, query);
       if (index != -1) {
         promise.fulfill(users[index]);
